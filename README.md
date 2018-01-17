@@ -1,4 +1,19 @@
-# Cristian-Dan-Jenny-Matthew-Neven
+# Overpass
+
+There are a lot of non-profit organizations that have engineering work that needs to get done and a lot of engineers and students who want to help, but there’s a gap in communication. We hope to bridge that gap by building a platform for nonprofits to create profiles and attached to those profiles are small tasks they need done, perhaps web dev or some backend work, etc. And then random engineers around the world can create public profiles that track what is essentially their volunteer work, where they can complete certain tasks on behalf of a non-profit.
+
+## Team
+
+| Member        | Photos |
+|---|---|
+| Jenny Lu | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t31.0-8/19787345_10212304145214668_3365721938108219112_o.jpg?oh=05442e313722317d94ef9a61a1073b25&oe=5ADBC961" height="200"> |
+| Cristian Lara | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t31.0-8/26240436_1790660624278453_2368794821920835065_o.jpg?oh=24edfc3cb52881d4a211987a91dcc78d&oe=5AEBEA50" height="200"> |
+| Dan Yu | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/16387150_10206642579183537_6546298417827281839_n.jpg?oh=7b9dfa6273becd9f06da729b7a4ce545&oe=5AE3AD3A" height="200"> |
+| Matthew Kim | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/26730861_1809305125746315_3229905711863425946_n.jpg?oh=f17c6cb580ce6e025fd9d31430167d26&oe=5ADD3A8B" height="200"> |
+| Neven Wang-Tomic | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t31.0-8/16422694_1172563559509500_7043078602013424425_o.jpg?oh=6e5416927c05a801e24a9234b70a6c84&oe=5AEC28C9" width="200"> |
+
+
+## Team Skills Matrix:
 
 | Member        | Skills           | Personal Traits  | Desired Growth | Weaknesses |
 | ------------- |-------------|-----|-|-|
