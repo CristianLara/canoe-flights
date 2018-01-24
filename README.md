@@ -12,7 +12,7 @@ There are a lot of non-profit organizations that have engineering work that need
 | Cristian Lara | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t31.0-8/26240436_1790660624278453_2368794821920835065_o.jpg?oh=24edfc3cb52881d4a211987a91dcc78d&oe=5AEBEA50" height="200"> |
 | Dan Yu | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/16387150_10206642579183537_6546298417827281839_n.jpg?oh=7b9dfa6273becd9f06da729b7a4ce545&oe=5AE3AD3A" height="200"> |
 | Matthew Kim | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t1.0-9/26730861_1809305125746315_3229905711863425946_n.jpg?oh=f17c6cb580ce6e025fd9d31430167d26&oe=5ADD3A8B" height="200"> |
-| Neven Wang-Tomic | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t31.0-8/16422694_1172563559509500_7043078602013424425_o.jpg?oh=6e5416927c05a801e24a9234b70a6c84&oe=5AEC28C9" width="200"> |
+| Neven Wang-Tomic | <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t31.0-8/21167213_1757944280900680_6572546568682937630_o.jpg?oh=f3e776a8d664ebb3debd431d12a07277&oe=5AF34A91" width="200"> |
 
 
 ## Team Skills Matrix:
