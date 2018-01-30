@@ -1,7 +1,8 @@
-# Canoe
+# Canoe 
 
 <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t34.0-12/26942733_1809311255745702_257658997_n.png?oh=be662dc1b2171295b2c0b1c812130f7a&oe=5A60BFA0" height="150">
 
+Canoe is an interactive web tool that provides useful flight price visualizations so people can be more informed when planning vacations. Users can come in with a desired budget and timeframe in mind and see all the possible destinations throughout the year that match their preferences, and if they’re interested in a specific flight path, see more detailed information about that specific flight. 
 
 ## Team
 
@@ -23,3 +24,6 @@
 | Dan Yu | Web, JS, Server-side, Machine Learning, Data, iOS | Organized, easy-going, 80/20, easily distracted | Project management, clean documentation, design  | Terrible memory, systems, napping, can't work with distractions |
 | Jenny Lu | Server-side, Databases, some web stuff  | Responsible and considerate, hard-working | Patience, front-end | Front-end dev; easily irritated when sleep-deprived |
 | Matthew Kim | ML, DL, AWS, backend, a bit of web stuff | Big picture, spurts of producitvity followed by distraction | PM, building something from ground-up | Front-end, design, getting libraries to work |
+
+How we communicate: Facebook Messenger
+How you can get in contact with us: email (jenny123@stanford.edu, claral3@stanford.edu, nevenwt@stanford.edu, mdkim@stanford.edu, dxyu@stanford.edu)
