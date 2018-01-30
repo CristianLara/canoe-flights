@@ -14,8 +14,10 @@ results
 tmp
 coverage
 
+## *DANGER* Commiting API keys because I'm lazy
+
 # API keys
-.env
+# .env
 
 # Dependency directory
 node_modules

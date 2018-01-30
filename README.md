@@ -1,8 +1,7 @@
-# Overpass
+# Canoe
 
 <img src="https://scontent-lax3-2.xx.fbcdn.net/v/t34.0-12/26942733_1809311255745702_257658997_n.png?oh=be662dc1b2171295b2c0b1c812130f7a&oe=5A60BFA0" height="150">
 
-There are a lot of non-profit organizations that have engineering work that needs to get done and a lot of engineers and students who want to help, but there’s a gap in communication. We hope to bridge that gap by building a platform for nonprofits to create profiles and attached to those profiles are small tasks they need done, perhaps web dev or some backend work, etc. And then random engineers around the world can create public profiles that track what is essentially their volunteer work, where they can complete certain tasks on behalf of a non-profit.
 
 ## Team
 
