@@ -24,4 +24,5 @@ Canoe is an interactive web tool that provides useful flight price visualization
 | Matthew Kim | ML, DL, AWS, backend, a bit of web stuff | Big picture, spurts of producitvity followed by distraction | PM, building something from ground-up | Front-end, design, getting libraries to work |
 
 How we communicate: Facebook Messenger
+
 How you can get in contact with us: email (jenny123@stanford.edu, claral3@stanford.edu, nevenwt@stanford.edu, mdkim@stanford.edu, dxyu@stanford.edu)
