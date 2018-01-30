@@ -1,7 +1,5 @@
 # Canoe 
 
-<img src="https://scontent-lax3-2.xx.fbcdn.net/v/t34.0-12/26942733_1809311255745702_257658997_n.png?oh=be662dc1b2171295b2c0b1c812130f7a&oe=5A60BFA0" height="150">
-
 Canoe is an interactive web tool that provides useful flight price visualizations so people can be more informed when planning vacations. Users can come in with a desired budget and timeframe in mind and see all the possible destinations throughout the year that match their preferences, and if they’re interested in a specific flight path, see more detailed information about that specific flight. 
 
 ## Team
