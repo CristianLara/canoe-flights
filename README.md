@@ -1,4 +1,4 @@
-# Canoe 
+<img src="https://github.com/StanfordCS194/Cristian-Dan-Jenny-Matthew-Neven/blob/master/Icon.png?raw=true" height="300">
 
 Canoe is an interactive web tool that provides useful flight price visualizations so people can be more informed when planning vacations. Users can come in with a desired budget and timeframe in mind and see all the possible destinations throughout the year that match their preferences, and if they’re interested in a specific flight path, see more detailed information about that specific flight. 
 
