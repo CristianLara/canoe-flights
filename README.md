@@ -25,8 +25,11 @@ Canoe is an interactive web tool that provides useful flight price visualization
 
 
 [Project Details](https://docs.google.com/document/d/1hr8v1cOoTif-E7pvTZ80SuxA923f62J3loSSzt1so5U/edit?usp=sharing)
+
 [Technical Documentation](https://docs.google.com/document/d/1N_YSGeroeoEu6arBwGy_tdS9MWYGCUfRhs6AewqPe74/edit?usp=sharing)
+
 [Progress Log](https://docs.google.com/document/d/1GXm91lihSdxBvjNmlBOVjh0PkG6FV1kaYx1nZy-N2fc/edit?usp=sharing)
+
 [Prototype Design](https://drive.google.com/file/d/14aKGspDhNtS0dzTXbB4ogA1gNGq6fIov/view?usp=sharing)
 
 How we communicate: Facebook Messenger
