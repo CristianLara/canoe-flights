@@ -1,32 +1,10 @@
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-*.swp
-
-pids
-logs
-results
-tmp
+# Don't check auto-generated stuff into git
 coverage
-
-## *DANGER* Commiting API keys because I'm lazy
-
-# API keys
-# .env
-
-# Dependency directory
+build
 node_modules
-bower_components
+stats.json
 
-# Editors
-.idea
-*.iml
-
-# OS metadata
+# Cruft
 .DS_Store
-Thumbs.db
+npm-debug.log
+.idea
