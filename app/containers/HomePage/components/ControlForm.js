@@ -12,7 +12,7 @@ import 'react-rangeslider/lib/index.css'
 const FormItem = styled.div`
   display: inline-block;
   width: 100px;
-  margin-right: 50px;
+  margin-left: 50px;
   margin-right: 50px;
 `;
 
