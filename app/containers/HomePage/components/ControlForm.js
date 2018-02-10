@@ -1,13 +1,12 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import _ from 'underscore';
 
 // Using an ES6 transpiler like Babel
-import Slider from 'react-rangeslider'
+import Slider from 'react-rangeslider';
 
 // To include the default styles
-import 'react-rangeslider/lib/index.css'
+import 'react-rangeslider/lib/index.css';
 
 const FormItem = styled.div`
   display: inline-block;
@@ -21,7 +20,7 @@ class ControlForm extends React.Component {
     super(props);
     this.state = {
       value: '',
-      volume: 0
+      volume: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,14 +30,14 @@ class ControlForm extends React.Component {
 
   handleChange(event) {
     this.setState({
-      value: event.target.value
+      value: event.target.value,
     });
   }
 
   handleBudgetChange(value) {
     this.setState({
-      volume: value
-    })
+      volume: value,
+    });
   }
 
   handleSubmit(event) {
@@ -47,7 +46,7 @@ class ControlForm extends React.Component {
   }
 
   render() {
-    let { volume } = this.state
+    const { volume } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -60,19 +59,20 @@ class ControlForm extends React.Component {
           Trip Duration:
           <select value={this.state.value} onChange={this.handleChange}>
             <option value="1">1 day</option>
-            { _.range(2, 30).map(value => <option value={value}>{value} days</option>) }
-          </select> 
+            { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
+          </select>
         </FormItem>
-        
+
         <FormItem>
-          Budget: 
+          Budget:
           <Slider
             min={50}
             max={2000}
             step={10}
             value={volume}
             orientation="horizontal"
-            onChange={this.handleBudgetChange} />
+            onChange={this.handleBudgetChange}
+          />
         </FormItem>
 
         <input type="submit" value="Search Flights!" />
