@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import _ from 'underscore';
+import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 // Using an ES6 transpiler like Babel
 import Slider from 'react-rangeslider';
@@ -8,11 +9,16 @@ import Slider from 'react-rangeslider';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 
-const FormItem = styled.div`
-  display: inline-block;
-  width: 100px;
-  margin-left: 50px;
-  margin-right: 50px;
+const FormContainer = styled.div`
+  padding: 0px 20px 0px 20px;
+`;
+
+const FormattedLabel = styled(ControlLabel)`
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+`;
+
+const PaddedFormControl = styled(FormControl)`
+    margin-bottom: 8px;
 `;
 
 class ControlForm extends React.Component {
@@ -20,6 +26,8 @@ class ControlForm extends React.Component {
     super(props);
     this.state = {
       value: '',
+      departureAirport: '',
+      duration: '',
       volume: 0,
     };
 
@@ -28,9 +36,16 @@ class ControlForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  getValidationState() {
+    const length = this.state.departureAirport.length;
+    if (length > 2) return 'success';
+    else if (length > 0) return 'error';
+    return null;
+  }
+
   handleChange(event) {
     this.setState({
-      value: event.target.value,
+      departureAirport: event.target.value,
     });
   }
 
@@ -46,37 +61,53 @@ class ControlForm extends React.Component {
   }
 
   render() {
-    const { volume } = this.state;
+    const { volume, departureAirport, duration } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <FormItem>
-          Home Airport:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </FormItem>
+      <FormContainer>
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup
+            controlId="formBasicText"
+            validationState={this.getValidationState()}
+          >
+            <FormattedLabel>Departure Airport</FormattedLabel>
+            <PaddedFormControl
+              type="text"
+              value={departureAirport}
+              placeholder="SFO"
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
 
-        <FormItem>
-          Trip Duration:
-          <select value={this.state.value} onChange={this.handleChange}>
-            <option value="1">1 day</option>
-            { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
-          </select>
-        </FormItem>
+            <FormattedLabel>Trip Duration</FormattedLabel>
+            <PaddedFormControl
+              componentClass="select"
+              placeholder="select"
+              value={duration}
+              onChange={this.handleChange}
+            >
+              <option value="1">1 day</option>
+              { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
+            </PaddedFormControl>
 
-        <FormItem>
-          Budget:
-          <Slider
-            min={50}
-            max={2000}
-            step={10}
-            value={volume}
-            orientation="horizontal"
-            onChange={this.handleBudgetChange}
-          />
-        </FormItem>
+            <FormattedLabel>Budget</FormattedLabel>
+            <div>
+              <Slider
+                min={50}
+                max={2000}
+                step={10}
+                value={volume}
+                orientation="horizontal"
+                onChange={this.handleBudgetChange}
+              />
+            </div>
 
-        <input type="submit" value="Search Flights!" />
-      </form>
+            <div className="text-center">
+              <Button><input type="submit" value="Search Flights!" /></Button>
+            </div>
+          </FormGroup>
+        </form>
+      </FormContainer>
     );
   }
 }

@@ -8,7 +8,7 @@ const ControlPanelWrapper = styled.div`
     top: 20px;
     left: 20px;
 
-    height: 350px;
+    height: auto;
     width: 200px;
     margin: auto;
     z-index: 99;
