@@ -37,30 +37,6 @@ class ControlForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  getDestinations(departureAirport, duration, volume) {
-    alert("hi");
-    const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
-    const sabreDevStudio = new SabreDevStudioFlight({
-      client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
-      client_secret:  'd4InUP8r',
-      uri:  'https://api.test.sabre.com',
-    });
-
-    let options = {
-      origin: departureAirport,
-      lengthofstay: duration,
-    	maxfare: volume,
-    };
-    let callback = function(error, data) {
-      if (error) {
-        alert(error);
-      } else {
-        alert(JSON.stringify(JSON.parse(data), null, 4));
-      }
-    };
-    sabreDevStudio.destination_finder(options, callback);
-  }
-
   getValidationState() {
     const length = this.state.departureAirport.length;
     if (length === 3) return 'success';
