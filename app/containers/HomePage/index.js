@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -47,7 +47,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   setTooltip(features) {
     if (features.length) {
-      ReactDOM.render(
+      ReactDOM.rendesr(
         React.createElement(
           Tooltip, {
             features
@@ -84,7 +84,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     const map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/mapbox/light-v9',
       center: [lng, lat],
       zoom
     });
