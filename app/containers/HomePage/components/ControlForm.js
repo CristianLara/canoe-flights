@@ -102,6 +102,7 @@ class ControlForm extends React.Component {
               value={departureAirport}
               placeholder="SFO"
               onChange={this.handleDepartureAirportChange}
+              onSelect={(val) => this.setState({ departureAirport: val })}
             />
             <FormControl.Feedback />
 
