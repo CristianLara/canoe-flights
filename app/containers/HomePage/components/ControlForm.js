@@ -31,32 +31,93 @@ class ControlForm extends React.Component {
       volume: 0,
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
+    this.handleTripDurationChange = this.handleTripDurationChange.bind(this);
     this.handleBudgetChange = this.handleBudgetChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  getDestinations(departureAirport, duration, volume) {
+    alert("hi");
+    const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
+    const sabreDevStudio = new SabreDevStudioFlight({
+      client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+      client_secret:  'd4InUP8r',
+      uri:  'https://api.test.sabre.com',
+    });
+
+    let options = {
+      origin: departureAirport,
+      lengthofstay: duration,
+    	maxfare: volume,
+    };
+    let callback = function(error, data) {
+      if (error) {
+        alert(error);
+      } else {
+        alert(JSON.stringify(JSON.parse(data), null, 4));
+      }
+    };
+    sabreDevStudio.destination_finder(options, callback);
+  }
+
   getValidationState() {
     const length = this.state.departureAirport.length;
-    if (length > 2) return 'success';
-    else if (length > 0) return 'error';
+    if (length === 3) return 'success';
+    if (length > 3) return 'error';
     return null;
   }
 
-  handleChange(event) {
+  handleDepartureAirportChange(event) {
     this.setState({
-      departureAirport: event.target.value,
+      departureAirport: event.target.value.toUpperCase(),
     });
   }
 
-  handleBudgetChange(value) {
+  handleTripDurationChange(event) {
     this.setState({
-      volume: value,
+      duration: event.target.value,
+    });
+  }
+
+  handleDurationChange(event) {
+    this.setState({
+      duration: event.target.value,
+    });
+  }
+
+  handleBudgetChange(event) {
+    this.setState({
+      volume: event.target.value,
     });
   }
 
   handleSubmit(event) {
-    alert('This doesnt currently do shit, TBD');
+    let departureAirport = this.state.departureAirport;
+    let duration = this.state.duration;
+    let volume = this.state.volume;
+    const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
+    const sabreDevStudio = new SabreDevStudioFlight({
+      client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+      client_secret:  'd4InUP8r',
+      uri:  'https://api.test.sabre.com',
+    });
+
+    let options = {
+      origin: departureAirport,
+      lengthofstay: duration,
+    	maxfare: volume,
+    };
+    let callback = function(error, data) {
+      if (error) {
+        alert(error);
+      } else {
+        alert(JSON.stringify(JSON.parse(data), null, 4));
+      }
+    };
+    sabreDevStudio.destination_finder(options, callback);
+    //alert('This doesnt currently do shit, TBD');
+    //getDestinations(departureAirport, duration, volume);
     event.preventDefault();
   }
 
@@ -75,7 +136,7 @@ class ControlForm extends React.Component {
               type="text"
               value={departureAirport}
               placeholder="SFO"
-              onChange={this.handleChange}
+              onChange={this.handleDepartureAirportChange}
             />
             <FormControl.Feedback />
 
@@ -84,7 +145,7 @@ class ControlForm extends React.Component {
               componentClass="select"
               placeholder="select"
               value={duration}
-              onChange={this.handleChange}
+              onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
               { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }

@@ -2,35 +2,36 @@
  * HomePage
  *
  * This is the first thing users see of our App, at the '/' route
+ * Commented out imports are currently unused (lint errors)
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+// import { Helmet } from 'react-helmet';
+// import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-
+import mapboxgl from 'mapbox-gl';
+import styled from 'styled-components';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
-import H2 from 'components/H2';
-import ReposList from 'components/ReposList';
-import AtPrefix from './AtPrefix';
-import CenteredSection from './CenteredSection';
-import Form from './Form';
-import Input from './Input';
-import Section from './Section';
-import messages from './messages';
+
+import saga from './saga';
+// import H2 from 'components/H2';
+// import ReposList from 'components/ReposList';
+// import AtPrefix from './AtPrefix';
+// import CenteredSection from './CenteredSection';
+// import Form from './Form';
+// import Input from './Input';
+// import Section from './Section';
+// import messages from './messages';
 import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
-import saga from './saga';
-import mapboxgl from 'mapbox-gl'
-import styled from 'styled-components';
 import Tooltip from './tooltip';
 import ControlPanel from './components/ControlPanel';
 
@@ -50,7 +51,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       ReactDOM.render(
         React.createElement(
           Tooltip, {
-            features
+            features,
           }
         ),
         this.tooltipContainer
@@ -61,12 +62,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
 
-  constructor(props: Props) {
+  constructor(props: props) {
     super(props);
     this.state = {
       lng: 5,
       lat: 34,
-      zoom: 1.5
+      zoom: 1.5,
     };
   }
 
@@ -84,31 +85,31 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     const map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/mapbox/light-v9',
       center: [lng, lat],
-      zoom
+      zoom,
     });
 
-    // const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
-    //   offset: [-120, 0]
-    // }).setLngLat([0,0]).addTo(map);
-    
-    // map.on('mousemove', (e) => {
-    //   const features = map.queryRenderedFeatures(e.point);
-    //   tooltip.setLngLat(e.lngLat);
-    //   map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-    //   this.setTooltip(features);
-    // });
+    const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
+      offset: [-120, 0],
+    }).setLngLat([0, 0]).addTo(map);
+
+    map.on('mousemove', (e) => {
+      const features = map.queryRenderedFeatures(e.point);
+      tooltip.setLngLat(e.lngLat);
+      map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+      this.setTooltip(features);
+    });
   }
 
   render() {
-    const { lng, lat, zoom } = this.state;
-    const { loading, error, repos } = this.props;
-    const reposListProps = {
-      loading,
-      error,
-      repos,
-    };
+    // const { lng, lat, zoom } = this.state;
+    // const { loading, error, repos } = this.props;
+    // const reposListProps = {
+    //   loading,
+    //   error,
+    //   repos,
+    // };
 
     return (
       <div>
