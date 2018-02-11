@@ -31,21 +31,28 @@ class ControlForm extends React.Component {
       volume: 0,
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
+    this.handleTripDurationChange = this.handleTripDurationChange.bind(this);
     this.handleBudgetChange = this.handleBudgetChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getValidationState() {
     const length = this.state.departureAirport.length;
-    if (length > 2) return 'success';
-    else if (length > 0) return 'error';
+    if (length === 3) return 'success';
+    if (length > 3) return 'error';
     return null;
   }
 
-  handleChange(event) {
+  handleDepartureAirportChange(event) {
     this.setState({
-      departureAirport: event.target.value,
+      departureAirport: event.target.value.toUpperCase(),
+    });
+  }
+
+  handleTripDurationChange(event) {
+    this.setState({
+      duration: event.target.value,
     });
   }
 
@@ -75,7 +82,7 @@ class ControlForm extends React.Component {
               type="text"
               value={departureAirport}
               placeholder="SFO"
-              onChange={this.handleChange}
+              onChange={this.handleDepartureAirportChange}
             />
             <FormControl.Feedback />
 
@@ -84,7 +91,7 @@ class ControlForm extends React.Component {
               componentClass="select"
               placeholder="select"
               value={duration}
-              onChange={this.handleChange}
+              onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
               { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
