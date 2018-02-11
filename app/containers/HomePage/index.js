@@ -83,23 +83,23 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     const { lng, lat, zoom } = this.state;
 
-    const map = new mapboxgl.Map({
+    new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
       center: [lng, lat],
       zoom,
     });
 
-    const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
-      offset: [-120, 0],
-    }).setLngLat([0, 0]).addTo(map);
+    // const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
+    //   offset: [-120, 0],
+    // }).setLngLat([0, 0]).addTo(map);
 
-    map.on('mousemove', (e) => {
-      const features = map.queryRenderedFeatures(e.point);
-      tooltip.setLngLat(e.lngLat);
-      map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-      this.setTooltip(features);
-    });
+    // map.on('mousemove', (e) => {
+    //   const features = map.queryRenderedFeatures(e.point);
+    //   tooltip.setLngLat(e.lngLat);
+    //   map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+    //   this.setTooltip(features);
+    // });
   }
 
   render() {
