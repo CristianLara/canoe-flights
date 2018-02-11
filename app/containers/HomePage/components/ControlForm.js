@@ -69,6 +69,7 @@ class ControlForm extends React.Component {
   }
 
   handleSubmit(event) {
+    /*
     let departureAirport = this.state.departureAirport;
     let duration = this.state.duration;
     let volume = this.state.volume;
@@ -92,7 +93,8 @@ class ControlForm extends React.Component {
       }
     };
     sabreDevStudio.destination_finder(options, callback);
-    //alert('This doesnt currently do shit, TBD');
+    */
+    alert('This doesnt currently do shit, TBD');
     //getDestinations(departureAirport, duration, volume);
     event.preventDefault();
   }
