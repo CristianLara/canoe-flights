@@ -46,7 +46,7 @@ class ControlForm extends React.Component {
 
   handleDepartureAirportChange(event) {
     this.setState({
-      departureAirport: event.target.value,
+      departureAirport: event.target.value.toUpperCase(),
     });
   }
 
