@@ -1,17 +1,17 @@
 const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
-var fs = require('fs');
+const fs = require('fs');
 
-let sabre_dev_studio = new SabreDevStudioFlight({
-  client_id:     'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
-  client_secret: 'd4InUP8r',
-  uri:           'https://api.test.sabre.com'
+const sabreDevStudio = new SabreDevStudioFlight({
+  client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+  client_secret:  'd4InUP8r',
+  uri:  'https://api.test.sabre.com',
 });
 
-let options = {
-	origin:'SFO',
-	departuredate:'2018-02-14',
-	returndate: '2018-02-21',
-	maxfare:'500'
+const options = {
+  origin: 'SFO',
+	departuredate: '2018-02-14',
+	returndate:  '2018-02-21',
+	maxfare: '500',
 };
 
 
@@ -32,4 +32,4 @@ let callback = function(error, data) {
 //var options = {};
 //sabre_dev_studio.get('/v1/lists/supported/cities', options, callback);
 //sabre_dev_studio.get('/v1/shop/flights/fares', options, callback);
-sabre_dev_studio.destination_finder(options, callback_save);
+sabreDevStudio.destination_finder(options, callback_save);
