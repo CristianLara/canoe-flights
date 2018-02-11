@@ -1,5 +1,5 @@
 import csv 
-
+import sys
 """
 Using large_airports.csv from running large_airports.py, we generate complete 
 csv of large airports with all the relevant information. 
@@ -39,8 +39,10 @@ with open('large_airport_info.csv', 'rb') as large_airports_csv:
 with open('airports_raw.csv', 'rb') as raw_airports_csv:
 	# new_reader = csv.DictReader('raw_airports_csv', fieldnames=FIELD_NAMES)
 	reader = csv.reader(raw_airports_csv)
+	writer = csv.writer(sys.stdout)
+
 	for row in reader:
 		airport_name = row[1]
 		airport_iata = row[4]
 		if airport_iata in large_airport_iata or airport_name in large_airport_names:
-			print row[1:12]
+			writer.writerow(row[1:12])
