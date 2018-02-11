@@ -48,7 +48,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   setTooltip(features) {
     if (features.length) {
-      ReactDOM.rendesr(
+      ReactDOM.render(
         React.createElement(
           Tooltip, {
             features,
