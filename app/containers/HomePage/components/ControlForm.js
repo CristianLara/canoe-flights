@@ -26,10 +26,9 @@ class ControlForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
       departureAirport: '',
-      duration: '',
-      volume: 0,
+      duration: 1,
+      budget: 100,
     };
 
     this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
@@ -61,17 +60,18 @@ class ControlForm extends React.Component {
 
   handleBudgetChange(value) {
     this.setState({
-      volume: value,
+      budget: value,
     });
   }
 
   handleSubmit(event) {
-    alert('This doesnt currently do shit, TBD');
+    const { budget, departureAirport, duration } = this.state;
+    alert(`This doesnt currently do shit, but will search for flights from ${departureAirport} for ${duration} days long under $${budget}.`);
     event.preventDefault();
   }
 
   render() {
-    const { volume, departureAirport, duration } = this.state;
+    const { budget, departureAirport, duration } = this.state;
 
     return (
       <FormContainer>
@@ -116,20 +116,20 @@ class ControlForm extends React.Component {
               { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
             </PaddedFormControl>
 
-            <FormattedLabel>Budget</FormattedLabel>
+            <FormattedLabel>Budget: ${budget}</FormattedLabel>
             <div>
               <Slider
                 min={50}
                 max={2000}
                 step={10}
-                value={volume}
+                value={budget}
                 orientation="horizontal"
                 onChange={this.handleBudgetChange}
               />
             </div>
 
             <div className="text-center">
-              <Button><input type="submit" value="Search Flights!" /></Button>
+              <Button><input type="submit" disabled={this.getValidationState() !== 'success'} value="Search Flights!" /></Button>
             </div>
           </FormGroup>
         </form>
