@@ -40,7 +40,7 @@ class ControlForm extends React.Component {
   getValidationState() {
     const length = this.state.departureAirport.length;
     if (length > 0) {
-      if (airportCodes.indexOf(this.state.departureAirport.toUpperCase()) > -1) return 'success';
+      if (airportCodes.includes(this.state.departureAirport.toUpperCase())) return 'success';
       return 'error';
     }
     return null;
