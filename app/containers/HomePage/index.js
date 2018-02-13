@@ -85,7 +85,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/light-v9',
+      // style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/cs194/cjdi54hifhzbi2sq3nptfdb9k',
       center: [lng, lat],
       zoom,
     });
@@ -102,6 +103,17 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     // });
   }
 
+  componentWillUpdate() {
+    this.map.on('load', function() {
+      // TODO: filter in the airports we actually want from the flights api (using IATA)
+      // TODO: add filter to state 
+      const filtered = ['SFO', 'SJC', 'ORD'];
+
+      this.map.setFilter('airports', ['in', 'IATA'].concat(filtered.map(function(feature) {
+        return feature;
+      })));
+    });
+  }
   render() {
     // const { lng, lat, zoom } = this.state;
     // const { loading, error, repos } = this.props;
