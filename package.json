@@ -229,6 +229,7 @@
     "minimist": "1.2.0",
     "prop-types": "15.5.10",
     "react": "^15.6.1",
+    "react-autocomplete": "^1.8.1",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^15.6.1",
     "react-helmet": "5.1.3",
