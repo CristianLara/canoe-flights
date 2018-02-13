@@ -63,8 +63,7 @@ class ControlForm extends React.Component {
   }
 
   handleSubmit(event) {
-    //alert('This doesnt currently do shit, TBD');
-    alert (options.origin);
+    event.preventDefault();
     const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
     const sabreDevStudio = new SabreDevStudioFlight({
       client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
@@ -80,15 +79,14 @@ class ControlForm extends React.Component {
 
     let callback = function(error, data) {
       if (error) {
-        //console.log(error);
+        console.log(error);
         alert();
       } else {
-        //console.log(JSON.stringify(JSON.parse(data), null, 4));
+        console.log(JSON.stringify(JSON.parse(data), null, 4));
         alert();
       }
     };
     sabreDevStudio.destination_finder(options, callback);
-    event.preventDefault();
   }
 
   render() {
