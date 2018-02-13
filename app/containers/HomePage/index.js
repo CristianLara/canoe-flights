@@ -45,25 +45,7 @@ const MapWrapper = styled.div`
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  tooltipContainer;
-
-  setTooltip(features) {
-    if (features.length) {
-      ReactDOM.render(
-        React.createElement(
-          Tooltip, {
-            features,
-          }
-        ),
-        this.tooltipContainer
-      );
-    } else {
-      this.tooltipContainer.innerHTML = '';
-    }
-  }
-
-
-  constructor(props: props) {
+  constructor(props) {
     super(props);
     this.state = {
       lng: 5,
@@ -77,10 +59,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
    */
   componentDidMount() {
     this.tooltipContainer = document.createElement('div');
-
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
 
     const { lng, lat, zoom } = this.state;
 
@@ -103,6 +81,23 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     // });
   }
 
+  setTooltip(features) {
+    if (features.length) {
+      ReactDOM.render(
+        React.createElement(
+          Tooltip, {
+            features,
+          }
+        ),
+        this.tooltipContainer
+      );
+    } else {
+      this.tooltipContainer.innerHTML = '';
+    }
+  }
+
+  tooltipContainer;
+
   render() {
     // const { lng, lat, zoom } = this.state;
     // const { loading, error, repos } = this.props;
@@ -117,26 +112,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <TimelineControl />
         <ControlPanel />
         <MapWrapper>
-          <div ref={el => this.mapContainer = el} className="absolute top right left bottom" />
+          <div ref={(el) => this.mapContainer = el} className="absolute top right left bottom" />
         </MapWrapper>
       </div>
     );
-}
+  }
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  repos: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {

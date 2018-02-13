@@ -65,29 +65,29 @@ class TimelineControl extends React.Component {
   }
 
   render() {
-      const { date, dateDelta } = this.state;
+    const { date, dateDelta } = this.state;
 
-      // kind of gross but i'm putting a label at 182
-      // because it's the center of the slider (~= 365/2)
-      var labels = { 182: date.format("MMM DD YYYY") }
+    // kind of gross but i'm putting a label at 182
+    // because it's the center of the slider (~= 365/2)
+    const labels = { 182: date.format('MMM DD YYYY') };
 
-      // tells the slider how to format the tooltip
-      const formatLabel = value => moment().add(value, 'days').format("MMM Do")
+    // tells the slider how to format the tooltip
+    const formatLabel = (value) => moment().add(value, 'days').format('MMM Do');
 
-      return (
-          <SliderContainer>
-              <Slider
-                min={0}
-                max={364}
-                step={1}
-                format={ formatLabel }
-                value={dateDelta}
-                orientation="horizontal"
-                labels={ labels }
-                onChange={this.handleChange}
-              />
-          </SliderContainer>
-      );
+    return (
+      <SliderContainer>
+        <Slider
+          min={0}
+          max={364}
+          step={1}
+          format={formatLabel}
+          value={dateDelta}
+          orientation="horizontal"
+          labels={labels}
+          onChange={this.handleChange}
+        />
+      </SliderContainer>
+    );
   }
 
 }
