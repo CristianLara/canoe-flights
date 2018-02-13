@@ -95,7 +95,7 @@ class TimelineControl extends React.Component {
 }
 
 TimelineControl.propTypes = {
-  updateDate: PropTypes.function.isRequired,
+  updateDate: PropTypes.func.isRequired,
 };
 
 export default TimelineControl;
