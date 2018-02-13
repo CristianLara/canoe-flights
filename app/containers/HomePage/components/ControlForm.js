@@ -56,23 +56,15 @@ class ControlForm extends React.Component {
     });
   }
 
-  handleDurationChange(event) {
+  handleBudgetChange(value) {
     this.setState({
-      duration: event.target.value,
-    });
-  }
-
-  handleBudgetChange(event) {
-    this.setState({
-      volume: event.target.value,
+      volume: value,
     });
   }
 
   handleSubmit(event) {
-    /*
-    let departureAirport = this.state.departureAirport;
-    let duration = this.state.duration;
-    let volume = this.state.volume;
+    //alert('This doesnt currently do shit, TBD');
+    alert (options.origin);
     const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
     const sabreDevStudio = new SabreDevStudioFlight({
       client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
@@ -81,21 +73,21 @@ class ControlForm extends React.Component {
     });
 
     let options = {
-      origin: departureAirport,
-      lengthofstay: duration,
-    	maxfare: volume,
+      origin: this.state.departureAirport,
+      lengthofstay: this.state.duration,
+    	maxfare: this.state.volume,
     };
+
     let callback = function(error, data) {
       if (error) {
-        alert(error);
+        //console.log(error);
+        alert();
       } else {
-        alert(JSON.stringify(JSON.parse(data), null, 4));
+        //console.log(JSON.stringify(JSON.parse(data), null, 4));
+        alert();
       }
     };
     sabreDevStudio.destination_finder(options, callback);
-    */
-    alert('This doesnt currently do shit, TBD');
-    //getDestinations(departureAirport, duration, volume);
     event.preventDefault();
   }
 
