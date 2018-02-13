@@ -82,8 +82,13 @@ class ControlForm extends React.Component {
         console.log(error);
         alert();
       } else {
-        console.log(JSON.stringify(JSON.parse(data), null, 4));
-        alert();
+        var parsed = JSON.parse(data);
+        console.log(JSON.stringify(parsed, null, 4));
+        var arr = [];
+        for (var i in parsed) {
+          arr.push(parsed[i]);
+        }
+        console.log(arr);
       }
     };
     sabreDevStudio.destination_finder(options, callback);
