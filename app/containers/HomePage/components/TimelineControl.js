@@ -22,6 +22,7 @@ const SliderContainer = styled.div`
     width: 100px !important;
     background-color: white !important;
     color: black !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
   }
 
   .rangeslider__handle-tooltip:after {
