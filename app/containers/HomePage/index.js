@@ -34,6 +34,7 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import Tooltip from './tooltip';
 import ControlPanel from './components/ControlPanel';
+import TimelineControl from './components/TimelineControl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -113,13 +114,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     return (
       <div>
+        <TimelineControl />
         <ControlPanel />
         <MapWrapper>
           <div ref={el => this.mapContainer = el} className="absolute top right left bottom" />
         </MapWrapper>
       </div>
     );
-  }
+}
 }
 
 HomePage.propTypes = {
