@@ -35,6 +35,7 @@ import reducer from './reducer';
 import Tooltip from './tooltip';
 import ControlPanel from './components/ControlPanel';
 import TimelineControl from './components/TimelineControl';
+import moment from 'moment';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -51,7 +52,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       lng: 5,
       lat: 34,
       zoom: 1.5,
+      date: moment(), // this is the state variable that the date slider modifies
     };
+
+    this.updateDate = this.updateDate.bind(this);
   }
 
   /**
@@ -98,6 +102,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   tooltipContainer;
 
+  updateDate(updatedDate) {
+    this.setState({
+        date: updatedDate,
+    });
+  }
+
   render() {
     // const { lng, lat, zoom } = this.state;
     // const { loading, error, repos } = this.props;
@@ -109,7 +119,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     return (
       <div>
-        <TimelineControl />
+        <TimelineControl updateDate={this.updateDate} />
         <ControlPanel />
         <MapWrapper>
           <div ref={(el) => this.mapContainer = el} className="absolute top right left bottom" />

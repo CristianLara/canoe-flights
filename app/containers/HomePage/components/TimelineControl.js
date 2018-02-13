@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Slider from 'react-rangeslider';
 import moment from 'moment';
@@ -62,6 +63,7 @@ class TimelineControl extends React.Component {
       dateDelta: value,
       date: moment().add(value, 'days'),
     });
+    this.props.updateDate(moment().add(value, 'days'));
   }
 
   render() {
@@ -91,5 +93,9 @@ class TimelineControl extends React.Component {
   }
 
 }
+
+TimelineControl.propTypes = {
+  updateDate: PropTypes.function.isRequired,
+};
 
 export default TimelineControl;
