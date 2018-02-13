@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import Autocomplete from 'react-autocomplete';
+var SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
 
 // Using an ES6 transpiler like Babel
 import Slider from 'react-rangeslider';
@@ -66,33 +67,29 @@ class ControlForm extends React.Component {
 
   handleSubmit(event) {
     const { budget, departureAirport, duration } = this.state;
-    alert(`This doesnt currently do shit, but will search for flights from ${departureAirport} for ${duration} days long under $${budget}.`);
     event.preventDefault();
-    const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
-    const sabreDevStudio = new SabreDevStudioFlight({
+
+    var sabreDevStudio = new SabreDevStudioFlight({
       client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
       client_secret:  'd4InUP8r',
       uri:  'https://api.test.sabre.com',
     });
 
     let options = {
-      origin: this.state.departureAirport,
-      lengthofstay: this.state.duration,
-    	maxfare: this.state.volume,
+      origin: departureAirport,
+      departuredate: '2018-02-14',
+      returndate:  '2018-02-21',
+    	maxfare: budget.toString(),
     };
 
     let callback = function(error, data) {
       if (error) {
         console.log(error);
-        alert();
       } else {
         var parsed = JSON.parse(data);
-        console.log(JSON.stringify(parsed, null, 4));
-        var arr = [];
-        for (var i in parsed) {
-          arr.push(parsed[i]);
-        }
-        console.log(arr);
+        var dests = [];
+        for (f in parsed['FareInfo']) dests.push(parsed['FareInfo'][f]['DestinationLocation']);
+        // dests stores all the airports we need
       }
     };
     sabreDevStudio.destination_finder(options, callback);

@@ -9,9 +9,10 @@ const sabreDevStudio = new SabreDevStudioFlight({
 
 const options = {
   origin: 'SFO',
-	departuredate: '2018-02-14',
-	returndate:  '2018-02-21',
-	maxfare: '500',
+  lengthofstay: '5',
+	//departuredate: '2018-02-14',
+	//returndate:  '2018-02-21',
+	maxfare: '200',
 };
 
 
@@ -26,10 +27,15 @@ let callback = function(error, data) {
   if (error) {
     console.log(error);
   } else {
-    console.log(JSON.stringify(JSON.parse(data), null, 4));
+    var parsed = JSON.parse(data);
+    var dests = [];
+    console.log(parsed['FareInfo'][0]['DestinationLocation']);
+    for (f in parsed['FareInfo']) dests.push(parsed['FareInfo'][f]['DestinationLocation']);
+    //dests.push(f['DestinationLocation']));
+    console.log(dests);
   }
 };
 //var options = {};
 //sabre_dev_studio.get('/v1/lists/supported/cities', options, callback);
 //sabre_dev_studio.get('/v1/shop/flights/fares', options, callback);
-sabreDevStudio.destination_finder(options, callback_save);
+sabreDevStudio.destination_finder(options, callback);

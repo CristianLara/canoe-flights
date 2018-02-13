@@ -5,6 +5,9 @@ const uniq = require('lodash/uniq');
 const ReactBoilerplate = {
   // This refers to the react-boilerplate version this project is based on.
   version: '3.5.0',
+  devServer: {
+   headers: { "Access-Control-Allow-Headers": "*" }
+  },
 
   /**
    * The DLL Plugin provides a dramatic speed increase to webpack build and hot module reloading
