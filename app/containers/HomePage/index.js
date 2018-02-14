@@ -34,6 +34,8 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import Tooltip from './tooltip';
 import ControlPanel from './components/ControlPanel';
+import TimelineControl from './components/TimelineControl';
+import moment from 'moment';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -44,31 +46,16 @@ const MapWrapper = styled.div`
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  tooltipContainer;
-
-  setTooltip(features) {
-    if (features.length) {
-      ReactDOM.render(
-        React.createElement(
-          Tooltip, {
-            features,
-          }
-        ),
-        this.tooltipContainer
-      );
-    } else {
-      this.tooltipContainer.innerHTML = '';
-    }
-  }
-
-
-  constructor(props: props) {
+  constructor(props) {
     super(props);
     this.state = {
       lng: 5,
       lat: 34,
       zoom: 1.5,
+      date: moment(), // this is the state variable that the date slider modifies
     };
+
+    this.updateDate = this.updateDate.bind(this);
   }
 
   /**
@@ -76,10 +63,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
    */
   componentDidMount() {
     this.tooltipContainer = document.createElement('div');
-
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
 
     const { lng, lat, zoom } = this.state;
 
@@ -114,20 +97,37 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       })));
     });
   }
-  render() {
-    // const { lng, lat, zoom } = this.state;
-    // const { loading, error, repos } = this.props;
-    // const reposListProps = {
-    //   loading,
-    //   error,
-    //   repos,
-    // };
 
+  setTooltip(features) {
+    if (features.length) {
+      ReactDOM.render(
+        React.createElement(
+          Tooltip, {
+            features,
+          }
+        ),
+        this.tooltipContainer
+      );
+    } else {
+      this.tooltipContainer.innerHTML = '';
+    }
+  }
+
+  tooltipContainer;
+
+  updateDate(updatedDate) {
+    this.setState({
+      date: updatedDate,
+    });
+  }
+
+  render() {
     return (
       <div>
+        <TimelineControl updateDate={this.updateDate} />
         <ControlPanel />
         <MapWrapper>
-          <div ref={el => this.mapContainer = el} className="absolute top right left bottom" />
+          <div ref={(el) => this.mapContainer = el} className="absolute top right left bottom" />
         </MapWrapper>
       </div>
     );
@@ -135,18 +135,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  repos: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
