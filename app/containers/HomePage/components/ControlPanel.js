@@ -1,5 +1,6 @@
 import logo from 'images/logo.png';
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ControlForm from './ControlForm';
 
@@ -28,9 +29,14 @@ function ControlPanel(props) {
   return (
     <ControlPanelWrapper>
       <Logo src={logo} alt="Canoe" />
-      <ControlForm updateBudget={props.updateBudget} />
+      <ControlForm updateBudget={props.updateBudget} updateFlights={props.updateFlights} />
     </ControlPanelWrapper>
   );
 }
+
+ControlPanel.propTypes = {
+  updateBudget: PropTypes.func.isRequired,
+  updateFlights: PropTypes.func.isRequired,
+};
 
 export default ControlPanel;
