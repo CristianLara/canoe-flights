@@ -32,7 +32,6 @@ import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
-import FlightData from './FlightData';
 import ControlPanel from './components/ControlPanel';
 import TimelineControl from './components/TimelineControl';
 
@@ -51,14 +50,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       lng: 5,
       lat: 34,
       zoom: 1.5,
-      date: moment(), // modified by date slider
-      flights: FlightData,
+      date: moment().add(10, 'days'), // modified by date slider
+      flights: {},
       budget: 500,
     };
     this.map = {};
     this.filteredFlights = {};
     this.updateDate = this.updateDate.bind(this);
     this.updateBudget = this.updateBudget.bind(this);
+    this.updateFlights = this.updateFlights.bind(this);
   }
 
   /**
@@ -106,18 +106,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     // populate a list with iata codes for flights matching our filters
     if (this.map.loaded()) {
-      flights.FareInfo.forEach((flight) => {
-        // check if flight departure matches departure slider date
-        if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
-          // check if cost of flight exceeds our budget
-          if (flight.LowestFare.Fare <= budget) {
-            filteredFlights[flight.DestinationLocation] = flight.LowestFare.Fare;
+      if (flights.FareInfo) {
+        flights.FareInfo.forEach((flight) => {
+          // check if flight departure matches departure slider date
+          if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
+            // check if cost of flight exceeds our budget
+            if (flight.LowestFare.Fare <= budget) {
+              filteredFlights[flight.DestinationLocation] = flight.LowestFare.Fare;
+            }
           }
-        }
-      });
+        });
+      }
 
       this.filteredFlights = filteredFlights;
-
       this.map.setFilter('airports', ['in', 'IATA'].concat(Object.keys(filteredFlights).map((feature) => feature)));
     }
   }
@@ -125,6 +126,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   updateDate(updatedDate) {
     this.setState({
       date: updatedDate,
+    });
+  }
+
+  updateFlights(updatedFlight) {
+    this.setState({
+      flights: updatedFlight,
     });
   }
 
@@ -138,7 +145,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
-        <ControlPanel updateBudget={this.updateBudget} />
+        <ControlPanel updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
