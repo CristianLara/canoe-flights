@@ -101,13 +101,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   componentWillUpdate() {
-    const { date, budget, flights } = this.state;
+    const { date, budget } = this.state;
     const filteredFlights = {};
 
     // populate a list with iata codes for flights matching our filters
     if (this.map.loaded()) {
-      if (flights.FareInfo) {
-        flights.FareInfo.forEach((flight) => {
+      if (this.flights.FareInfo) {
+        this.flights.FareInfo.forEach((flight) => {
           // check if flight departure matches departure slider date
           if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
             // check if cost of flight exceeds our budget
@@ -130,6 +130,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   updateFlights(updatedFlight) {
+    // TODO update the state in a callback instead of this jank ish
+    this.flights = updatedFlight;
     this.setState({
       flights: updatedFlight,
     });
