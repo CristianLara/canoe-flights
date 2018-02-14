@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 // import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
@@ -15,6 +14,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import mapboxgl from 'mapbox-gl';
 import styled from 'styled-components';
+import moment from 'moment';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
@@ -32,8 +32,9 @@ import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
-import Tooltip from './tooltip';
+import FlightData from './FlightData';
 import ControlPanel from './components/ControlPanel';
+import TimelineControl from './components/TimelineControl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -44,78 +45,102 @@ const MapWrapper = styled.div`
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
-  tooltipContainer;
-
-  setTooltip(features) {
-    if (features.length) {
-      ReactDOM.render(
-        React.createElement(
-          Tooltip, {
-            features,
-          }
-        ),
-        this.tooltipContainer
-      );
-    } else {
-      this.tooltipContainer.innerHTML = '';
-    }
-  }
-
-
-  constructor(props: props) {
+  constructor(props) {
     super(props);
     this.state = {
       lng: 5,
       lat: 34,
       zoom: 1.5,
+      date: moment(), // modified by date slider
+      flights: FlightData,
+      budget: 500,
     };
+    this.map = {};
+    this.filteredFlights = {};
+    this.updateDate = this.updateDate.bind(this);
+    this.updateBudget = this.updateBudget.bind(this);
   }
 
   /**
    * when initial state username is not null, submit the form to load repos
    */
   componentDidMount() {
-    this.tooltipContainer = document.createElement('div');
-
-    if (this.props.username && this.props.username.trim().length > 0) {
-      this.props.onSubmitForm();
-    }
-
     const { lng, lat, zoom } = this.state;
+    const parent = this;
 
-    new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/light-v9',
+      style: 'mapbox://styles/cs194/cjdi54hifhzbi2sq3nptfdb9k',
       center: [lng, lat],
       zoom,
     });
 
-    // const tooltip = new mapboxgl.Marker(this.tooltipContainer, {
-    //   offset: [-120, 0],
-    // }).setLngLat([0, 0]).addTo(map);
+    this.map.on('load', function () {
+      // Create a popup, but don't add it to the map yet.
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
+      });
 
-    // map.on('mousemove', (e) => {
-    //   const features = map.queryRenderedFeatures(e.point);
-    //   tooltip.setLngLat(e.lngLat);
-    //   map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-    //   this.setTooltip(features);
-    // });
+      this.on('mouseenter', 'airports', (e) => {
+        // Change the cursor style as a UI indicator.
+        this.getCanvas().style.cursor = 'pointer';
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> $${parent.filteredFlights[e.features[0].properties.IATA]}`)
+          .addTo(this);
+      });
+
+      this.on('mouseleave', 'airports', () => {
+        this.getCanvas().style.cursor = '';
+        popup.remove();
+      });
+    });
+  }
+
+  componentWillUpdate() {
+    const { date, budget, flights } = this.state;
+    const filteredFlights = {};
+
+    // populate a list with iata codes for flights matching our filters
+    if (this.map.loaded()) {
+      flights.FareInfo.forEach((flight) => {
+        // check if flight departure matches departure slider date
+        if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
+          // check if cost of flight exceeds our budget
+          if (flight.LowestFare.Fare <= budget) {
+            filteredFlights[flight.DestinationLocation] = flight.LowestFare.Fare;
+          }
+        }
+      });
+
+      this.filteredFlights = filteredFlights;
+
+      this.map.setFilter('airports', ['in', 'IATA'].concat(Object.keys(filteredFlights).map((feature) => feature)));
+    }
+  }
+
+  updateDate(updatedDate) {
+    this.setState({
+      date: updatedDate,
+    });
+  }
+
+  updateBudget(updatedBudget) {
+    this.setState({
+      budget: updatedBudget,
+    });
   }
 
   render() {
-    // const { lng, lat, zoom } = this.state;
-    // const { loading, error, repos } = this.props;
-    // const reposListProps = {
-    //   loading,
-    //   error,
-    //   repos,
-    // };
-
     return (
       <div>
-        <ControlPanel />
+        <TimelineControl updateDate={this.updateDate} />
+        <ControlPanel updateBudget={this.updateBudget} />
         <MapWrapper>
-          <div ref={el => this.mapContainer = el} className="absolute top right left bottom" />
+          <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
       </div>
     );
@@ -123,18 +148,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.bool,
-  ]),
-  repos: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.bool,
-  ]),
   onSubmitForm: PropTypes.func,
-  username: PropTypes.string,
-  onChangeUsername: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {

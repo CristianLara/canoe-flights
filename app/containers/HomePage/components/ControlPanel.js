@@ -24,11 +24,11 @@ const Logo = styled.img`
     margin:auto;
 `;
 
-function ControlPanel() {
+function ControlPanel(props) {
   return (
     <ControlPanelWrapper>
       <Logo src={logo} alt="Canoe" />
-      <ControlForm />
+      <ControlForm updateBudget={props.updateBudget} />
     </ControlPanelWrapper>
   );
 }
