@@ -1,0 +1,367 @@
+{
+    "OriginLocation": "SFO",
+    "FareInfo": [
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 367.58,
+            "PricePerMile": 0.17,
+            "LowestFare": 367.58,
+            "DestinationLocation": "ATL",
+            "Distance": 2135,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=ATL&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 709.6,
+            "PricePerMile": 0.31,
+            "LowestFare": 469.68,
+            "DestinationLocation": "AUS",
+            "Distance": 1497,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=AUS&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 296.6,
+            "PricePerMile": 0.11,
+            "LowestFare": 296.6,
+            "DestinationLocation": "BOS",
+            "Distance": 2698,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=BOS&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 243.6,
+            "PricePerMile": 0.26,
+            "LowestFare": 243.6,
+            "DestinationLocation": "DEN",
+            "Distance": 954,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=DEN&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 351.61,
+            "PricePerMile": 0.24,
+            "LowestFare": 351.61,
+            "DestinationLocation": "DFW",
+            "Distance": 1468,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=DFW&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 437,
+            "PricePerMile": 0.18,
+            "LowestFare": 437,
+            "DestinationLocation": "HNL",
+            "Distance": 2397,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=HNL&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 980.6,
+            "PricePerMile": 0.07,
+            "LowestFare": 108.01,
+            "DestinationLocation": "IAH",
+            "Distance": 1641,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=IAH&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 616.6,
+            "PricePerMile": 0.17,
+            "LowestFare": 430,
+            "DestinationLocation": "JFK",
+            "Distance": 2572,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=JFK&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 157.59,
+            "PricePerMile": 0.36,
+            "LowestFare": 152.3,
+            "DestinationLocation": "LAS",
+            "Distance": 424,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=LAS&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 90.61,
+            "PricePerMile": 0.27,
+            "LowestFare": 90.61,
+            "DestinationLocation": "LAX",
+            "Distance": 339,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=LAX&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 398.6,
+            "PricePerMile": 0.15,
+            "LowestFare": 367.01,
+            "DestinationLocation": "MCO",
+            "Distance": 2438,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=MCO&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 512.6,
+            "PricePerMile": 0.16,
+            "LowestFare": 425,
+            "DestinationLocation": "MIA",
+            "Distance": 2582,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=MIA&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 762.6,
+            "PricePerMile": 0.15,
+            "LowestFare": 276.01,
+            "DestinationLocation": "ORD",
+            "Distance": 1847,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=ORD&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 338.6,
+            "PricePerMile": 0.54,
+            "LowestFare": 298.36,
+            "DestinationLocation": "PDX",
+            "Distance": 550,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=PDX&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 456.6,
+            "PricePerMile": 0.25,
+            "LowestFare": 108.01,
+            "DestinationLocation": "PSP",
+            "Distance": 429,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=PSP&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 389.25,
+            "PricePerMile": 0.25,
+            "LowestFare": 389.25,
+            "DestinationLocation": "PVR",
+            "Distance": 1557,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=PVR&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 428.44,
+            "PricePerMile": 0.16,
+            "LowestFare": 420.94,
+            "DestinationLocation": "SAL",
+            "Distance": 2627,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=SAL&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 286.59,
+            "PricePerMile": 0.66,
+            "LowestFare": 286.59,
+            "DestinationLocation": "SAN",
+            "Distance": 436,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=SAN&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 466.6,
+            "PricePerMile": 0.55,
+            "LowestFare": 375.37,
+            "DestinationLocation": "SEA",
+            "Distance": 679,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=SEA&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 382.57,
+            "PricePerMile": 0.28,
+            "LowestFare": 354.57,
+            "DestinationLocation": "SJD",
+            "Distance": 1257,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=SJD&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 286.6,
+            "PricePerMile": 0.77,
+            "LowestFare": 286.6,
+            "DestinationLocation": "SNA",
+            "Distance": 373,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=SNA&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        },
+        {
+            "CurrencyCode": "USD",
+            "LowestNonStopFare": 682.19,
+            "PricePerMile": 0.39,
+            "LowestFare": 312.81,
+            "DestinationLocation": "YVR",
+            "Distance": 800,
+            "DepartureDateTime": "2018-02-14T00:00:00",
+            "ReturnDateTime": "2018-02-21T00:00:00",
+            "Links": [
+                {
+                    "rel": "shop",
+                    "href": "https://api.test.sabre.com/v1/shop/flights?origin=SFO&destination=YVR&departuredate=2018-02-14&returndate=2018-02-21&pointofsalecountry=US"
+                }
+            ]
+        }
+    ],
+    "Links": [
+        {
+            "rel": "self",
+            "href": "https://api.test.sabre.com/v1/shop/flights/fares?origin=SFO&departuredate=2018-02-14&returndate=2018-02-21&maxfare=500"
+        },
+        {
+            "rel": "linkTemplate",
+            "href": "https://api.test.sabre.com/v1/shop/flights/fares?origin=<origin>&departuredate=<departuredate>&returndate=<returndate>&location=<location>&theme=<theme>&minfare=<minfare>&maxfare=<maxfare>&lengthofstay=<lengthofstay>&earliestdeparturedate=<earliestdeparturedate>&latestdeparturedate=<latestdeparturedate>&pointofsalecountry=<pointofsalecountry>&region=<region>&topdestinations=<topdestinations>&pricepermile=<pricepermile>"
+        }
+    ]
+}

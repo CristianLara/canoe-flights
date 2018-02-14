@@ -5,11 +5,15 @@ import _ from 'underscore';
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import Autocomplete from 'react-autocomplete';
 
+
 // Using an ES6 transpiler like Babel
 import Slider from 'react-rangeslider';
 
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
+
+// Use the SabreDevStudioFlight API
+import SabreDevStudioFlight from '../api/sabre-flight';
 
 const FormContainer = styled.div`
   padding: 0px 20px 0px 20px;
@@ -81,9 +85,42 @@ class ControlForm extends React.Component {
   }
 
   handleSubmit(event) {
-    const { budget, departureAirport, duration } = this.state;
-    alert(`This doesnt currently do shit, but will search for flights from ${departureAirport} for ${duration} days long under $${budget}.`);
     event.preventDefault();
+
+    const sabreDevStudio = new SabreDevStudioFlight({
+      client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+      client_secret: 'd4InUP8r',
+      uri: 'https://api.test.sabre.com',
+    });
+
+    const options = {
+      origin: this.state.departureAirport,
+      lengthofstay: this.state.duration,
+      maxfare: this.state.budget,
+    };
+
+    const callback = function (error, data) {
+      if (error) {
+        console.log(error);
+      } else {
+        var parsed_data = JSON.parse(data);
+        var dests = [];
+        for (var i = 0; i < parsed_data['FareInfo'].length; i++) {
+          if (parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare']) {
+            var price = parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare'];
+          } else {
+            var price = parsed_data['FareInfo'][i]['LowestFare']['Fare'];
+          }
+          var flight = {
+            destination: parsed_data['FareInfo'][i]['DestinationLocation'],
+            price: price,
+          };
+          dests.push(flight);
+        }
+      }
+    };
+    
+    sabreDevStudio.destination_finder(options, callback);
   }
 
   render() {
@@ -129,7 +166,7 @@ class ControlForm extends React.Component {
               onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
-              { _.range(2, 30).map((value) => <option value={value} key={value}>{value} days</option>) }
+              { _.range(2, 30).map((value) => <option key={value} value={value}>{value} days</option>) }
             </PaddedFormControl>
 
             <FormattedLabel>Budget: ${budget}</FormattedLabel>

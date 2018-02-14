@@ -7,12 +7,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 // import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import styled from 'styled-components';
 import moment from 'moment';
 import injectReducer from 'utils/injectReducer';
