@@ -102,7 +102,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   componentWillUpdate() {
     const { date, budget, flights } = this.state;
-    const iataCodes = [];
     const filteredFlights = {};
 
     // populate a list with iata codes for flights matching our filters
@@ -112,7 +111,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
           // check if cost of flight exceeds our budget
           if (flight.LowestFare.Fare <= budget) {
-            iataCodes.push(flight.DestinationLocation);
             filteredFlights[flight.DestinationLocation] = flight.LowestFare.Fare;
           }
         }
