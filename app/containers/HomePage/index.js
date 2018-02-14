@@ -89,7 +89,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         // Populate the popup and set its coordinates
         // based on the feature found.
         popup.setLngLat(e.features[0].geometry.coordinates)
-          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> $${parent.filteredFlights[e.features[0].properties.IATA]}`)
+          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> ${e.features[0].properties.City}</br><center>$${parent.filteredFlights[e.features[0].properties.IATA]}</center>`)
           .addTo(this);
       });
 
