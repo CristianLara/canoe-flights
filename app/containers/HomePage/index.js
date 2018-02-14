@@ -7,12 +7,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 // import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import styled from 'styled-components';
 import moment from 'moment';
 import injectReducer from 'utils/injectReducer';
@@ -89,7 +90,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         // Populate the popup and set its coordinates
         // based on the feature found.
         popup.setLngLat(e.features[0].geometry.coordinates)
-          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> $${parent.filteredFlights[e.features[0].properties.IATA]}`)
+          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> ${e.features[0].properties.City}</br><center>$${parent.filteredFlights[e.features[0].properties.IATA]}</center>`)
           .addTo(this);
       });
 

@@ -23,6 +23,7 @@ module.exports = require('./webpack.base.babel')({
   context: process.cwd(),
   entry: dllConfig.dlls ? dllConfig.dlls : dllPlugin.entry(pkg),
   devtool: 'eval',
+  target: 'node',
   output: {
     filename: '[name].dll.js',
     path: outputPath,

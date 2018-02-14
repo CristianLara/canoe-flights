@@ -111,7 +111,19 @@ module.exports = (options) => ({
       'main',
     ],
   },
+  node: {
+    fs: 'empty',
+  },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    module: 'empty',
+  },
+  devServer: {
+   headers: { "Access-Control-Allow-Headers": "*" }
+  },
   performance: options.performance || {},
 });
