@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 // import { Helmet } from 'react-helmet';
 // import { FormattedMessage } from 'react-intl';
@@ -15,6 +14,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import mapboxgl from 'mapbox-gl';
 import styled from 'styled-components';
+import moment from 'moment';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
@@ -32,11 +32,9 @@ import { loadRepos } from '../App/actions';
 import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
-import Tooltip from './tooltip';
-import FlightData from './flightData';
+import FlightData from './FlightData';
 import ControlPanel from './components/ControlPanel';
 import TimelineControl from './components/TimelineControl';
-import moment from 'moment';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -68,8 +66,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
    */
   componentDidMount() {
     const { lng, lat, zoom } = this.state;
-    const filteredFlights = this.filteredFlights;
-    var parent = this;
+    const parent = this;
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -78,29 +75,27 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       zoom,
     });
 
-    this.map.on('load', function() {
+    this.map.on('load', function () {
       // Create a popup, but don't add it to the map yet.
-      var popup = new mapboxgl.Popup({
-          closeButton: false,
-          closeOnClick: false
+      const popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false,
       });
 
-      this.on('mouseenter', 'airports', function(e) {
-          // Change the cursor style as a UI indicator.
-          this.getCanvas().style.cursor = 'pointer';
+      this.on('mouseenter', 'airports', (e) => {
+        // Change the cursor style as a UI indicator.
+        this.getCanvas().style.cursor = 'pointer';
 
-          // Populate the popup and set its coordinates
-          // based on the feature found.
-          console.log(e.features)
-          console.log(parent)
-          popup.setLngLat(e.features[0].geometry.coordinates)
-              .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> $${parent.filteredFlights[e.features[0].properties.IATA]}`)
-              .addTo(this);
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(e.features[0].geometry.coordinates)
+          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> $${parent.filteredFlights[e.features[0].properties.IATA]}`)
+          .addTo(this);
       });
 
-      this.on('mouseleave', 'airports', function() {
-          this.getCanvas().style.cursor = '';
-          popup.remove();
+      this.on('mouseleave', 'airports', () => {
+        this.getCanvas().style.cursor = '';
+        popup.remove();
       });
     });
   }
@@ -108,11 +103,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   componentWillUpdate() {
     const { date, budget, flights } = this.state;
     const iataCodes = [];
-    var filteredFlights = {};
+    const filteredFlights = {};
 
     // populate a list with iata codes for flights matching our filters
     if (this.map.loaded()) {
-      flights.FareInfo.forEach(function(flight){
+      flights.FareInfo.forEach((flight) => {
         // check if flight departure matches departure slider date
         if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
           // check if cost of flight exceeds our budget
@@ -125,12 +120,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
       this.filteredFlights = filteredFlights;
 
-      this.map.setFilter('airports', ['in', 'IATA'].concat(Object.keys(filteredFlights).map(function(feature) {
-        return feature;
-      })));
-
-
-    };
+      this.map.setFilter('airports', ['in', 'IATA'].concat(Object.keys(filteredFlights).map((feature) => feature)));
+    }
   }
 
   updateDate(updatedDate) {
@@ -151,7 +142,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <TimelineControl updateDate={this.updateDate} />
         <ControlPanel updateBudget={this.updateBudget} />
         <MapWrapper>
-          <div ref={(el) => this.mapContainer = el} className="absolute top right left bottom" />
+          <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
       </div>
     );
