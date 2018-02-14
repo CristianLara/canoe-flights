@@ -55,6 +55,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       budget: 500,
     };
     this.map = {};
+    this.flights = {};
     this.filteredFlights = {};
     this.updateDate = this.updateDate.bind(this);
     this.updateBudget = this.updateBudget.bind(this);
@@ -106,7 +107,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     // populate a list with iata codes for flights matching our filters
     if (this.map.loaded()) {
-      if (this.flights.FareInfo) {
+      if (this.flights && this.flights.FareInfo) {
         this.flights.FareInfo.forEach((flight) => {
           // check if flight departure matches departure slider date
           if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
