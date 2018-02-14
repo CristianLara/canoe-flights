@@ -53,7 +53,7 @@ class TimelineControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: moment(),
+      date: moment().add(10, 'days'),
       dateDelta: 0,
     };
 
