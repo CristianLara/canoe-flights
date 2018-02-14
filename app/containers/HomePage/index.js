@@ -15,7 +15,6 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import styled from 'styled-components';
-import moment from 'moment';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
