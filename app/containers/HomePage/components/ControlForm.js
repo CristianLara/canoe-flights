@@ -5,6 +5,7 @@ import _ from 'underscore';
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import Autocomplete from 'react-autocomplete';
 
+
 // Using an ES6 transpiler like Babel
 import Slider from 'react-rangeslider';
 
@@ -95,19 +96,27 @@ class ControlForm extends React.Component {
     const options = {
       origin: this.state.departureAirport,
       lengthofstay: this.state.duration,
-      maxfare: this.state.volume,
+      maxfare: this.state.budget,
     };
 
     const callback = function (error, data) {
       if (error) {
         console.log(error);
       } else {
-        console.log(JSON.stringify(JSON.parse(data)));
-        alert();
-        // var parsed = JSON.parse(data);
-        // var dests = [];
-        // for (f in parsed['FareInfo']) dests.push(parsed['FareInfo'][f]['DestinationLocation']);
-        // dests stores all the airports we need
+        var parsed_data = JSON.parse(data);
+        var dests = [];
+        for (var i = 0; i < parsed_data['FareInfo'].length; i++) {
+          if (parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare']) {
+            var price = parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare'];
+          } else {
+            var price = parsed_data['FareInfo'][i]['LowestFare']['Fare'];
+          }
+          var flight = {
+            destination: parsed_data['FareInfo'][i]['DestinationLocation'],
+            price: price,
+          };
+          dests.push(flight);
+        }
       }
     };
 
@@ -157,7 +166,7 @@ class ControlForm extends React.Component {
               onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
-              { _.range(2, 30).map((value) => <option value={value} key={value}>{value} days</option>) }
+              { _.range(2, 30).map((value) => <option key={value} value={value}>{value} days</option>) }
             </PaddedFormControl>
 
             <FormattedLabel>Budget: ${budget}</FormattedLabel>
