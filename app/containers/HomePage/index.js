@@ -53,8 +53,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       lat: 34,
       zoom: 1.5,
       date: moment(), // this is the state variable that the date slider modifies
+      flights: {},
     };
-
+    this.map = {};
     this.updateDate = this.updateDate.bind(this);
   }
 
@@ -66,7 +67,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     const { lng, lat, zoom } = this.state;
 
-    new mapboxgl.Map({
+    this.map = new mapboxgl.Map({
       container: this.mapContainer,
       // style: 'mapbox://styles/mapbox/streets-v9',
       style: 'mapbox://styles/cs194/cjdi54hifhzbi2sq3nptfdb9k',
@@ -87,11 +88,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   componentWillUpdate() {
-    this.map.on('load', function() {
+
+    const { flights, date } = this.state;
+    this.map.on('loaded', function() {
+      console.log("MAP LOADING");
       // TODO: filter in the airports we actually want from the flights api (using IATA)
       // TODO: add filter to state 
-      const filtered = ['SFO', 'SJC', 'ORD'];
-
+      // const filtered = ['SFO', 'SJC', 'ORD'];
+      const filtered = flights.map(a => a.FareInfo.DestinationLocation);
+      console.log(filtered)
       this.map.setFilter('airports', ['in', 'IATA'].concat(filtered.map(function(feature) {
         return feature;
       })));
