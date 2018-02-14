@@ -9,6 +9,11 @@ import Slider from 'react-rangeslider';
 // To include the default styles
 import 'react-rangeslider/lib/index.css';
 
+// Use the SabreDevStudioFlight API
+import SabreDevStudioFlight from '../api/sabre-flight';
+
+
+
 const FormContainer = styled.div`
   padding: 0px 20px 0px 20px;
 `;
@@ -20,6 +25,8 @@ const FormattedLabel = styled(ControlLabel)`
 const PaddedFormControl = styled(FormControl)`
     margin-bottom: 8px;
 `;
+
+
 
 class ControlForm extends React.Component {
   constructor(props) {
@@ -64,7 +71,7 @@ class ControlForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
+
     const sabreDevStudio = new SabreDevStudioFlight({
       client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
       client_secret:  'd4InUP8r',
@@ -82,10 +89,11 @@ class ControlForm extends React.Component {
         console.log(error);
         alert();
       } else {
-        console.log(JSON.stringify(JSON.parse(data), null, 4));
+        console.log(JSON.stringify(JSON.parse(data)));
         alert();
       }
     };
+
     sabreDevStudio.destination_finder(options, callback);
   }
 
@@ -104,8 +112,7 @@ class ControlForm extends React.Component {
               type="text"
               value={departureAirport}
               placeholder="SFO"
-              onChange={this.handleDepartureAirportChange}
-            />
+              onChange={this.handleDepartureAirportChange} />
             <FormControl.Feedback />
 
             <FormattedLabel>Trip Duration</FormattedLabel>
@@ -113,10 +120,10 @@ class ControlForm extends React.Component {
               componentClass="select"
               placeholder="select"
               value={duration}
-              onChange={this.handleTripDurationChange}
-            >
+              onChange={this.handleTripDurationChange} >
+
               <option value="1">1 day</option>
-              { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
+              { _.range(2, 30).map((value) => <option key={value} value={value}>{value} days</option>) }
             </PaddedFormControl>
 
             <FormattedLabel>Budget</FormattedLabel>

@@ -9,6 +9,8 @@ import { reposLoaded, repoLoadingError } from 'containers/App/actions';
 import request from 'utils/request';
 import { makeSelectUsername } from 'containers/HomePage/selectors';
 
+const SabreDevStudioFlight = require('./api/sabre-flight');
+
 /**
  * Github repos request/response handler
  */
