@@ -15,6 +15,11 @@ import SabreDevStudioFlight from '../api/sabre-flight';
 
 const FormContainer = styled.div`
   padding: 0px 20px 0px 20px;
+
+  .rangeslider__fill {
+    background-color: #3498db;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0) !important;
+  }
 `;
 
 const FormattedLabel = styled(ControlLabel)`
