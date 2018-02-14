@@ -67,6 +67,7 @@ class ControlForm extends React.Component {
     this.setState({
       budget: value,
     });
+    this.props.updateBudget(value);
   }
 
   handleSubmit(event) {
