@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /*
  * sabre-dev-studio
  * https://github.com/SabreLabs/sabre-dev-studio-node

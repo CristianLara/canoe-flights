@@ -12,8 +12,6 @@ import 'react-rangeslider/lib/index.css';
 // Use the SabreDevStudioFlight API
 import SabreDevStudioFlight from '../api/sabre-flight';
 
-
-
 const FormContainer = styled.div`
   padding: 0px 20px 0px 20px;
 `;
@@ -25,8 +23,6 @@ const FormattedLabel = styled(ControlLabel)`
 const PaddedFormControl = styled(FormControl)`
     margin-bottom: 8px;
 `;
-
-
 
 class ControlForm extends React.Component {
   constructor(props) {
@@ -73,18 +69,18 @@ class ControlForm extends React.Component {
     event.preventDefault();
 
     const sabreDevStudio = new SabreDevStudioFlight({
-      client_id:  'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
-      client_secret:  'd4InUP8r',
-      uri:  'https://api.test.sabre.com',
+      client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+      client_secret: 'd4InUP8r',
+      uri: 'https://api.test.sabre.com',
     });
 
-    let options = {
+    const options = {
       origin: this.state.departureAirport,
       lengthofstay: this.state.duration,
-    	maxfare: this.state.volume,
+      maxfare: this.state.volume,
     };
 
-    let callback = function(error, data) {
+    const callback = function (error, data) {
       if (error) {
         console.log(error);
         alert();
@@ -112,7 +108,8 @@ class ControlForm extends React.Component {
               type="text"
               value={departureAirport}
               placeholder="SFO"
-              onChange={this.handleDepartureAirportChange} />
+              onChange={this.handleDepartureAirportChange}
+            />
             <FormControl.Feedback />
 
             <FormattedLabel>Trip Duration</FormattedLabel>
@@ -120,8 +117,8 @@ class ControlForm extends React.Component {
               componentClass="select"
               placeholder="select"
               value={duration}
-              onChange={this.handleTripDurationChange} >
-
+              onChange={this.handleTripDurationChange}
+            >
               <option value="1">1 day</option>
               { _.range(2, 30).map((value) => <option key={value} value={value}>{value} days</option>) }
             </PaddedFormControl>
