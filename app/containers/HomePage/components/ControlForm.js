@@ -68,7 +68,6 @@ class ControlForm extends React.Component {
   }
 
   handleSubmit(event) {
-    const { budget, departureAirport, duration } = this.state;
     event.preventDefault();
 
     const sabreDevStudio = new SabreDevStudioFlight({
@@ -95,13 +94,6 @@ class ControlForm extends React.Component {
         // dests stores all the airports we need
       }
     };
-
-    const callback_save = function (error, data) {
-      fs.writeFile("sample-data.txt", JSON.stringify(JSON.parse(data), null, 4), function(err) {
-        if(err) {
-            return console.log(err);
-        }
-    })};
 
     sabreDevStudio.destination_finder(options, callback);
   }
