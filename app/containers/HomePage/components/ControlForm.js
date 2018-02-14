@@ -41,9 +41,9 @@ class ControlForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departureAirport: '',
+      departureAirport: 'SFO',
       duration: 1,
-      budget: 100,
+      budget: 500,
     };
 
     this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
@@ -129,7 +129,7 @@ class ControlForm extends React.Component {
               onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
-              { _.range(2, 30).map((value) => <option value={value}>{value} days</option>) }
+              { _.range(2, 30).map((value) => <option value={value} key={value}>{value} days</option>) }
             </PaddedFormControl>
 
             <FormattedLabel>Budget: ${budget}</FormattedLabel>
