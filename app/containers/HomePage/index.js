@@ -104,19 +104,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   updateDate(updatedDate) {
     this.setState({
-        date: updatedDate,
+      date: updatedDate,
     });
   }
 
   render() {
-    // const { lng, lat, zoom } = this.state;
-    // const { loading, error, repos } = this.props;
-    // const reposListProps = {
-    //   loading,
-    //   error,
-    //   repos,
-    // };
-
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
