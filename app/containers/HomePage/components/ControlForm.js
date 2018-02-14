@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import _ from 'underscore';
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import Autocomplete from 'react-autocomplete';
-var SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
 
 // Using an ES6 transpiler like Babel
 import Slider from 'react-rangeslider';
@@ -96,6 +95,13 @@ class ControlForm extends React.Component {
         // dests stores all the airports we need
       }
     };
+
+    const callback_save = function (error, data) {
+      fs.writeFile("sample-data.txt", JSON.stringify(JSON.parse(data), null, 4), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+    })};
 
     sabreDevStudio.destination_finder(options, callback);
   }
