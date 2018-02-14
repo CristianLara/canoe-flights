@@ -246,20 +246,9 @@
     "redux": "3.6.0",
     "redux-immutable": "4.0.0",
     "redux-saga": "0.15.3",
-<<<<<<< HEAD
-    "request": "^2.69.0",
-=======
     "request": "^2.83.0",
->>>>>>> c5b5b649b2122bf41e58107ce85c891b0bdca148
-    "reselect": "3.0.1",
-    "sanitize.css": "4.1.0",
-<<<<<<< HEAD
-    "simple-errors": "~1.0.0",
-    "simple-oauth2": "^0.5.1",
-=======
     "simple-errors": "^1.0.1",
     "simple-oauth2": "^1.5.0",
->>>>>>> c5b5b649b2122bf41e58107ce85c891b0bdca148
     "styled-components": "2.0.0",
     "tls": "0.0.1",
     "warning": "3.0.0",
