@@ -169,7 +169,7 @@ class ControlForm extends React.Component {
               onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
-              { _.range(2, 30).map((value) => <option key={value} value={value}>{value} days</option>) }
+              { _.range(2, 16).map((value) => <option key={value} value={value}>{value} days</option>) }
             </PaddedFormControl>
 
             <FormattedLabel>Budget: ${budget}</FormattedLabel>
