@@ -11,6 +11,10 @@ const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngr
 const resolve = require('path').resolve;
 const app = express();
 const cors = require('cors');
+<<<<<<< HEAD
+=======
+app.options('*', cors());
+>>>>>>> c5b5b649b2122bf41e58107ce85c891b0bdca148
 
 app.use(cors());
 
