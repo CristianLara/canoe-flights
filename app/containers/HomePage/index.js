@@ -36,10 +36,6 @@ import reducer from './reducer';
 import FlightData from './FlightData';
 import ControlPanel from './components/ControlPanel';
 import TimelineControl from './components/TimelineControl';
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
