@@ -34,7 +34,7 @@ const SliderContainer = styled.div`
   }
 
   .rangeslider__fill {
-    background-color: #3498db;
+    background-color: #3498db !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0) !important;
   }
 
@@ -73,7 +73,7 @@ class TimelineControl extends React.Component {
 
     // kind of gross but i'm putting a label at 182
     // because it's the center of the slider (~= 365/2)
-    const labels = { 15: date.format('MMM DD YYYY') };
+    const labels = { 182: date.format('MMM DD YYYY') };
 
     // tells the slider how to format the tooltip
     const formatLabel = (value) => moment().add(value, 'days').format('MMM Do');
@@ -82,7 +82,7 @@ class TimelineControl extends React.Component {
       <SliderContainer>
         <Slider
           min={0}
-          max={30}
+          max={364}
           step={1}
           format={formatLabel}
           value={dateDelta}

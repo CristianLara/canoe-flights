@@ -14,8 +14,17 @@ const FormContainer = styled.div`
   padding: 0px 20px 0px 20px;
 
   .rangeslider__fill {
-    background-color: #3498db;
+    background-color: #3498db !important;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0) !important;
+  }
+
+  .rangeslider-horizontal .rangeslider__handle:after {
+    content: '';
+    width: 0px;
+  }
+
+  .rangeslider-horizontal .rangeslider__handle {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
   }
 `;
 
