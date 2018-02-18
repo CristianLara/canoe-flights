@@ -51,7 +51,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       lng: 5,
       lat: 34,
       zoom: 1.5,
-      date: moment().add(10, 'days'), // modified by date slider
+      date: moment().add(1, 'days'), // modified by date slider
       flights: {},
       budget: 500,
     };
