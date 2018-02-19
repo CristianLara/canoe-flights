@@ -97,9 +97,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             property: 'lowestFare',
             type: 'exponential',
             stops: [
-              [200, '#2ecc71'],
-              [1000, '#f1c40f'],
-              [1800, '#e74c3c'],
+              [0, '#2ecc71'],
+              [250, '#f1c40f'],
+              [500, '#e74c3c'],
             ],
           },
           'circle-opacity': 1,
@@ -181,6 +181,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.setState({
       budget: updatedBudget,
     });
+    this.map.setPaintProperty('airports', 'circle-color', {
+      property: 'lowestFare',
+      type: 'exponential',
+      stops: [
+        [0, '#2ecc71'],
+        [updatedBudget/2, '#f1c40f'],
+        [updatedBudget, '#e74c3c'],
+      ],
+    })
   }
 
   render() {
