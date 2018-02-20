@@ -34,6 +34,7 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import ControlPanel from './components/ControlPanel';
 import TimelineControl from './components/TimelineControl';
+import FlightInfo from './FlightInfo';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -50,13 +51,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       lng: 5,
       lat: 34,
       zoom: 1.5,
-      date: moment().add(10, 'days'), // modified by date slider
+      date: moment().add(1, 'days'), // modified by date slider
       flights: {},
       budget: 500,
     };
     this.map = {};
-    this.flights = {};
-    this.filteredFlights = {};
+    this.updateFilters = this.updateFilters.bind(this);
     this.updateDate = this.updateDate.bind(this);
     this.updateBudget = this.updateBudget.bind(this);
     this.updateFlights = this.updateFlights.bind(this);
@@ -67,16 +67,45 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
    */
   componentDidMount() {
     const { lng, lat, zoom } = this.state;
-    const parent = this;
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/cs194/cjdi54hifhzbi2sq3nptfdb9k',
+      style: 'mapbox://styles/mapbox/light-v9',
       center: [lng, lat],
       zoom,
     });
 
+    // Add zoom and rotation controls to the map.
+    this.map.addControl(new mapboxgl.NavigationControl({ position: 'top-right' }));
+
     this.map.on('load', function () {
+      this.addSource('flights', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [],
+        },
+      });
+
+      this.addLayer({
+        id: 'airports',
+        type: 'circle',
+        source: 'flights',
+        paint: {
+          'circle-radius': 5,
+          'circle-color': {
+            property: 'lowestFare',
+            type: 'exponential',
+            stops: [
+              [0, '#2ecc71'],
+              [250, '#f1c40f'],
+              [500, '#e74c3c'],
+            ],
+          },
+          'circle-opacity': 1,
+        },
+      });
+
       // Create a popup, but don't add it to the map yet.
       const popup = new mapboxgl.Popup({
         closeButton: false,
@@ -90,7 +119,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         // Populate the popup and set its coordinates
         // based on the feature found.
         popup.setLngLat(e.features[0].geometry.coordinates)
-          .setHTML(`<strong>${e.features[0].properties.IATA}:</strong> ${e.features[0].properties.City}</br><center>$${parent.filteredFlights[e.features[0].properties.IATA]}</center>`)
+          .setHTML(`<strong>${e.features[0].properties.airport}:</strong> ${e.features[0].properties.city}</br><center>$${e.features[0].properties.lowestFare}</center>`)
           .addTo(this);
       });
 
@@ -102,26 +131,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   componentWillUpdate() {
-    const { date, budget } = this.state;
-    const filteredFlights = {};
-
-    // populate a list with iata codes for flights matching our filters
-    if (this.map.loaded()) {
-      if (this.flights && this.flights.FareInfo) {
-        this.flights.FareInfo.forEach((flight) => {
-          // check if flight departure matches departure slider date
-          if (moment(flight.DepartureDateTime).dayOfYear() === date.dayOfYear()) {
-            // check if cost of flight exceeds our budget
-            if (flight.LowestFare.Fare <= budget) {
-              filteredFlights[flight.DestinationLocation] = flight.LowestFare.Fare;
-            }
-          }
-        });
-      }
-
-      this.filteredFlights = filteredFlights;
-      this.map.setFilter('airports', ['in', 'IATA'].concat(Object.keys(filteredFlights).map((feature) => feature)));
-    }
+    this.updateFilters();
   }
 
   updateDate(updatedDate) {
@@ -131,17 +141,55 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   updateFlights(updatedFlight) {
-    // TODO update the state in a callback instead of this jank ish
-    this.flights = updatedFlight;
-    this.setState({
-      flights: updatedFlight,
+    const features = [];
+    updatedFlight.FareInfo.forEach((flight) => {
+      if (flight.DestinationLocation in FlightInfo) {
+        const lat = FlightInfo[flight.DestinationLocation].lat;
+        const long = FlightInfo[flight.DestinationLocation].long;
+        const feature = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [long, lat],
+          },
+          properties: {
+            airport: flight.DestinationLocation,
+            city: FlightInfo[flight.DestinationLocation].city,
+            lowestFare: flight.LowestFare.Fare,
+            departureDate: moment(flight.DepartureDateTime).dayOfYear(),
+          },
+        };
+        features.push(feature);
+      }
     });
+    const geoJSON = {
+      type: 'FeatureCollection',
+      features,
+    };
+    this.map.getSource('flights').setData(geoJSON);
+    this.updateFilters();
+  }
+
+  updateFilters() {
+    const { date, budget } = this.state;
+    if (this.map.loaded()) {
+      this.map.setFilter('airports', ['all', ['<=', 'lowestFare', budget], ['==', 'departureDate', date.dayOfYear()]]);
+    }
   }
 
   updateBudget(updatedBudget) {
     this.setState({
       budget: updatedBudget,
     });
+    this.map.setPaintProperty('airports', 'circle-color', {
+      property: 'lowestFare',
+      type: 'exponential',
+      stops: [
+        [0, '#2ecc71'],
+        [updatedBudget/2, '#f1c40f'],
+        [updatedBudget, '#e74c3c'],
+      ],
+    })
   }
 
   render() {

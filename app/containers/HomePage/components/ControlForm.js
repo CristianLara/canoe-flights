@@ -97,28 +97,28 @@ class ControlForm extends React.Component {
     const options = {
       origin: this.state.departureAirport,
       lengthofstay: this.state.duration,
-      maxfare: this.state.budget,
+      // maxfare: this.state.budget,
     };
 
-    const props = this.props;
     const parent = this;
+    const updateFlights = this.props.updateFlights;
 
     const callback = function (error, data) {
       parent.setState({ isLoading: false });
       if (error) {
         console.log(error);
       } else {
-        var parsed_data = JSON.parse(data);
-        props.updateFlights(parsed_data);
+        const parsedData = JSON.parse(data);
+        updateFlights(parsedData);
         // var dests = [];
-        // for (var i = 0; i < parsed_data['FareInfo'].length; i++) {
-        //   if (parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare']) {
-        //     var price = parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare'];
+        // for (var i = 0; i < parsedData['FareInfo'].length; i++) {
+        //   if (parsedData['FareInfo'][i]['LowestNonStopFare']['Fare']) {
+        //     var price = parsedData['FareInfo'][i]['LowestNonStopFare']['Fare'];
         //   } else {
-        //     var price = parsed_data['FareInfo'][i]['LowestFare']['Fare'];
+        //     var price = parsedData['FareInfo'][i]['LowestFare']['Fare'];
         //   }
         //   var flight = {
-        //     destination: parsed_data['FareInfo'][i]['DestinationLocation'],
+        //     destination: parsedData['FareInfo'][i]['DestinationLocation'],
         //     price: price,
         //   };
         //   dests.push(flight);
