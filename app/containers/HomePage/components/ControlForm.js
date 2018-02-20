@@ -48,6 +48,7 @@ class ControlForm extends React.Component {
       departureAirport: 'SFO',
       duration: 1,
       budget: 500,
+      isLoading: false,
     };
 
     this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
@@ -99,9 +100,11 @@ class ControlForm extends React.Component {
       // maxfare: this.state.budget,
     };
 
+    const parent = this;
     const updateFlights = this.props.updateFlights;
 
     const callback = function (error, data) {
+      parent.setState({ isLoading: false });
       if (error) {
         console.log(error);
       } else {
@@ -123,11 +126,12 @@ class ControlForm extends React.Component {
       }
     };
 
+    this.setState({ isLoading: true });
     sabreDevStudio.destination_finder(options, callback);
   }
 
   render() {
-    const { budget, departureAirport, duration } = this.state;
+    const { budget, departureAirport, duration, isLoading } = this.state;
 
     return (
       <FormContainer>
@@ -185,7 +189,7 @@ class ControlForm extends React.Component {
             </div>
 
             <div className="text-center">
-              <Button><input type="submit" disabled={this.getValidationState() !== 'success'} value="Search Flights!" /></Button>
+              <Button type="submit" disabled={this.getValidationState() !== 'success' || isLoading}>{isLoading ? 'Loading...' : 'Search Flights!'}</Button>
             </div>
           </FormGroup>
         </form>
