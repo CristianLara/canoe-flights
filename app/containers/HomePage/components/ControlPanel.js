@@ -13,10 +13,10 @@ const ControlPanelWrapper = styled.div`
     width: 200px;
     margin: auto;
     z-index: 99;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgb(37, 37, 37);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    box-shadow: 0px 2px 5px #888888;
+    box-shadow: 0px 2px 5px rgb(28, 28, 28);
 `;
 
 const Logo = styled.img`
