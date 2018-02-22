@@ -70,7 +70,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/light-v9',
+      style: 'mapbox://styles/mapbox/dark-v9',
       center: [lng, lat],
       zoom,
     });
@@ -186,10 +186,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       type: 'exponential',
       stops: [
         [0, '#2ecc71'],
-        [updatedBudget/2, '#f1c40f'],
+        [updatedBudget / 2, '#f1c40f'],
         [updatedBudget, '#e74c3c'],
       ],
-    })
+    });
   }
 
   render() {
