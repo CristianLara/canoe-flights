@@ -48,6 +48,7 @@ class ControlForm extends React.Component {
       departureAirport: 'SFO',
       duration: 1,
       budget: 500,
+      isLoading: false,
     };
 
     this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
@@ -96,26 +97,28 @@ class ControlForm extends React.Component {
     const options = {
       origin: this.state.departureAirport,
       lengthofstay: this.state.duration,
-      maxfare: this.state.budget,
+      // maxfare: this.state.budget,
     };
 
-    const props = this.props;
+    const parent = this;
+    const updateFlights = this.props.updateFlights;
 
     const callback = function (error, data) {
+      parent.setState({ isLoading: false });
       if (error) {
         console.log(error);
       } else {
-        var parsed_data = JSON.parse(data);
-        props.updateFlights(parsed_data);
+        const parsedData = JSON.parse(data);
+        updateFlights(parsedData);
         // var dests = [];
-        // for (var i = 0; i < parsed_data['FareInfo'].length; i++) {
-        //   if (parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare']) {
-        //     var price = parsed_data['FareInfo'][i]['LowestNonStopFare']['Fare'];
+        // for (var i = 0; i < parsedData['FareInfo'].length; i++) {
+        //   if (parsedData['FareInfo'][i]['LowestNonStopFare']['Fare']) {
+        //     var price = parsedData['FareInfo'][i]['LowestNonStopFare']['Fare'];
         //   } else {
-        //     var price = parsed_data['FareInfo'][i]['LowestFare']['Fare'];
+        //     var price = parsedData['FareInfo'][i]['LowestFare']['Fare'];
         //   }
         //   var flight = {
-        //     destination: parsed_data['FareInfo'][i]['DestinationLocation'],
+        //     destination: parsedData['FareInfo'][i]['DestinationLocation'],
         //     price: price,
         //   };
         //   dests.push(flight);
@@ -123,11 +126,12 @@ class ControlForm extends React.Component {
       }
     };
 
+    this.setState({ isLoading: true });
     sabreDevStudio.destination_finder(options, callback);
   }
 
   render() {
-    const { budget, departureAirport, duration } = this.state;
+    const { budget, departureAirport, duration, isLoading } = this.state;
 
     return (
       <FormContainer>
@@ -169,7 +173,7 @@ class ControlForm extends React.Component {
               onChange={this.handleTripDurationChange}
             >
               <option value="1">1 day</option>
-              { _.range(2, 30).map((value) => <option key={value} value={value}>{value} days</option>) }
+              { _.range(2, 16).map((value) => <option key={value} value={value}>{value} days</option>) }
             </PaddedFormControl>
 
             <FormattedLabel>Budget: ${budget}</FormattedLabel>
@@ -185,7 +189,7 @@ class ControlForm extends React.Component {
             </div>
 
             <div className="text-center">
-              <Button><input type="submit" disabled={this.getValidationState() !== 'success'} value="Search Flights!" /></Button>
+              <Button type="submit" disabled={this.getValidationState() !== 'success' || isLoading}>{isLoading ? 'Loading...' : 'Search Flights!'}</Button>
             </div>
           </FormGroup>
         </form>
