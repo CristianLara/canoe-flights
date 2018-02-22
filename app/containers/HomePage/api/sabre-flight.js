@@ -57,6 +57,12 @@ var SabreDevStudioFlight = (function() {
       that.sabre_dev_studio.get(endpoint, options, callback);
     };
 
+    this.region_lookup = function(options, callback) {
+
+      var endpoint = '/v2/lists/supported/regions/AFRICA';
+      that.sabre_dev_studio.get(endpoint, options, callback);
+    }
+
     /**
      * Future Dates Lead Fare Search, aka "Calendar Lead"
      *

@@ -1,4 +1,4 @@
-const SabreDevStudioFlight = require('sabre-dev-studio/lib/sabre-dev-studio-flight');
+const SabreDevStudioFlight = require('../app/containers/HomePage/api/sabre-flight');
 const fs = require('fs');
 
 const sabreDevStudio = new SabreDevStudioFlight({
@@ -7,13 +7,28 @@ const sabreDevStudio = new SabreDevStudioFlight({
   uri:  'https://api.test.sabre.com',
 });
 
-const options = {
+const optionsDest = {
   origin: 'SFO',
   lengthofstay: '5',
-	//departuredate: '2018-02-14',
-	//returndate:  '2018-02-21',
-	maxfare: '200',
+  location: 'BR',
+  maxfare: 2000,
 };
+
+const optionsNull = {
+};
+
+const optionsAfr = {
+  destinationcountry: 'SS',
+};
+
+const optionsInsta = {
+  origin: 'SFO',
+  destination: 'GRU',
+  departuredate: '2018-02-28',
+  returndate: '2018-03-04',
+  limit: 10,
+  sortby: 'totalfare',
+}
 
 
 let callback_save = function(error, data) {
@@ -23,19 +38,15 @@ let callback_save = function(error, data) {
     }
 })};
 
-let callback = function(error, data) {
+const callback = function (error, data) {
   if (error) {
     console.log(error);
   } else {
-    var parsed = JSON.parse(data);
-    var dests = [];
-    console.log(parsed['FareInfo'][0]['DestinationLocation']);
-    for (f in parsed['FareInfo']) dests.push(parsed['FareInfo'][f]['DestinationLocation']);
-    //dests.push(f['DestinationLocation']));
-    console.log(dests);
+    const parsedData = JSON.parse(data);
+    console.log(JSON.stringify(parsedData, null, 4));
   }
 };
-//var options = {};
-//sabre_dev_studio.get('/v1/lists/supported/cities', options, callback);
-//sabre_dev_studio.get('/v1/shop/flights/fares', options, callback);
-sabreDevStudio.destination_finder(options, callback);
+//sabreDevStudio.destination_finder(optionsDest, callback);
+//sabreDevStudio.region_lookup(optionsRegion, callback);
+//sabreDevStudio.city_pairs_lookup(optionsNull, callback);
+sabreDevStudio.instaflights_search(optionsInsta, callback);
