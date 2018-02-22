@@ -1,6 +1,6 @@
 <img src="https://github.com/StanfordCS194/Cristian-Dan-Jenny-Matthew-Neven/blob/master/Icon.png?raw=true" height="300">
 
-Canoe is an interactive web tool that provides useful flight price visualizations so people can be more informed when planning vacations. Users can come in with a desired budget and timeframe in mind and see all the possible destinations throughout the year that match their preferences, and if they’re interested in a specific flight path, see more detailed information about that specific flight. 
+Canoe is an interactive web tool that provides useful flight price visualizations so people can be more informed when planning vacations. Users can come in with a desired budget and timeframe in mind and see all the possible destinations throughout the year that match their preferences, and if they’re interested in a specific flight path, see more detailed information about that specific flight.
 
 ## Team
 
@@ -24,16 +24,9 @@ Canoe is an interactive web tool that provides useful flight price visualization
 | Matthew Kim | ML, DL, AWS, backend, a bit of web stuff | Big picture, spurts of producitvity followed by distraction | PM, building something from ground-up | Front-end, design, getting libraries to work |
 
 
-[Project Details](https://docs.google.com/document/d/1hr8v1cOoTif-E7pvTZ80SuxA923f62J3loSSzt1so5U/edit?usp=sharing)
-
-[Technical Documentation](https://docs.google.com/document/d/1N_YSGeroeoEu6arBwGy_tdS9MWYGCUfRhs6AewqPe74/edit?usp=sharing)
-
-[Progress Log](https://docs.google.com/document/d/1GXm91lihSdxBvjNmlBOVjh0PkG6FV1kaYx1nZy-N2fc/edit?usp=sharing)
-
-[Prototype Design](https://drive.google.com/file/d/14aKGspDhNtS0dzTXbB4ogA1gNGq6fIov/view?usp=sharing)
+[Project Documentation](https://drive.google.com/open?id=1xCHcI0kdb362nUx99qIf3NTKLjLt65Bk)
 
 How we communicate: Facebook Messenger
 
-How you can get in contact with us: Email 
+How you can get in contact with us: Email
 (jenny123@stanford.edu, claral3@stanford.edu, nevenwt@stanford.edu, mdkim@stanford.edu, dxyu@stanford.edu)
-
