@@ -149,6 +149,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.setState({
       date: updatedDate,
     });
+    const { flights, chosenAirport } = this.state;
+    flights.forEach((flight) => {
+      if (flight.properties.airport === chosenAirport.airport &&
+          flight.properties.departureDate === updatedDate.dayOfYear()) {
+        const newFlight = {
+          airport: flight.properties.airport,
+          city: flight.properties.city,
+          lowestFare: flight.properties.lowestFare,
+          departureDate: flight.properties.departureDate,
+        };
+        this.setState({ chosenAirport: newFlight });
+      }
+    });
   }
 
   updateFlights(updatedFlight) {

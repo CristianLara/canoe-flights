@@ -128,6 +128,10 @@ class DetailsPanel extends React.Component {
     if (date) {
       date = moment().dayOfYear(date).format('ddd, MMM Do');
     }
+    let dateIndex = 0;
+    if (this.props.destination.departureDate) {
+      dateIndex = moment().dayOfYear(this.props.destination.departureDate).diff(moment(), 'days');
+    }
     return (
       <DetailsPanelWrapper enabled={this.props.destination}>
         <Title>{this.props.destination.airport}</Title>
@@ -153,7 +157,7 @@ class DetailsPanel extends React.Component {
             stroke="white"
             strokeDasharray="4 4"
           />
-          {!_.isEmpty(flightData) && <ReferenceDot x={0} y={flightData[0].price} r={5} fill="white" stroke="none" />}
+          {!_.isEmpty(flightData) && <ReferenceDot x={dateIndex} y={this.props.destination.lowestFare} r={5} fill="white" stroke="none" />}
         </StyledChart>
         <AxisTick bottom="0px">-$0</AxisTick>
       </DetailsPanelWrapper>
