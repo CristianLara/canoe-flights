@@ -117,19 +117,6 @@ class ControlForm extends React.Component {
       } else {
         const parsedData = JSON.parse(data);
         updateFlights(parsedData);
-        // var dests = [];
-        // for (var i = 0; i < parsedData['FareInfo'].length; i++) {
-        //   if (parsedData['FareInfo'][i]['LowestNonStopFare']['Fare']) {
-        //     var price = parsedData['FareInfo'][i]['LowestNonStopFare']['Fare'];
-        //   } else {
-        //     var price = parsedData['FareInfo'][i]['LowestFare']['Fare'];
-        //   }
-        //   var flight = {
-        //     destination: parsedData['FareInfo'][i]['DestinationLocation'],
-        //     price: price,
-        //   };
-        //   dests.push(flight);
-        // }
       }
     };
 
