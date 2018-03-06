@@ -98,12 +98,14 @@ class DetailsPanel extends React.Component {
     nextProps.flights.forEach((flight) => {
       if (flight.properties.airport === nextProps.destination.airport) {
         const fare = flight.properties.lowestFare;
-        min = Math.min(min, fare);
-        max = Math.max(max, fare);
-        newFlightData.push({
-          price: fare,
-          dayOfYear: flight.properties.departureDate,
-        });
+        if (fare !== undefined) {
+          min = Math.min(min, fare);
+          max = Math.max(max, fare);
+          newFlightData.push({
+            price: fare,
+            dayOfYear: flight.properties.departureDate,
+          });
+        }
       }
     });
     this.setState({ flightData: newFlightData, highestPrice: max, lowestPrice: min });
