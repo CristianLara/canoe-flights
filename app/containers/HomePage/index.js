@@ -203,21 +203,21 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const { date, budget } = this.state;
     if (this.map.loaded()) {
       this.map.setFilter('airports', ['all', ['<=', 'lowestFare', budget], ['==', 'departureDate', date.dayOfYear()]]);
+      this.map.setPaintProperty('airports', 'circle-color', {
+        property: 'lowestFare',
+        type: 'exponential',
+        stops: [
+          [0, '#2ecc71'],
+          [budget / 2, '#f1c40f'],
+          [budget, '#e74c3c'],
+        ],
+      });
     }
   }
 
   updateBudget(updatedBudget) {
     this.setState({
       budget: updatedBudget,
-    });
-    this.map.setPaintProperty('airports', 'circle-color', {
-      property: 'lowestFare',
-      type: 'exponential',
-      stops: [
-        [0, '#2ecc71'],
-        [updatedBudget / 2, '#f1c40f'],
-        [updatedBudget, '#e74c3c'],
-      ],
     });
   }
 
