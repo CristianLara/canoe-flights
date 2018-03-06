@@ -77,12 +77,14 @@ class ControlForm extends React.Component {
     this.setState({
       departureAirport: event.target.value.toUpperCase(),
     });
+    this.handleSubmit();
   }
 
   handleTripDurationChange(event) {
     this.setState({
       duration: event.target.value,
     });
+    this.handleSubmit();
   }
 
   handleBudgetChange(value) {
@@ -90,10 +92,11 @@ class ControlForm extends React.Component {
       budget: value,
     });
     this.props.updateBudget(value);
+    this.handleSubmit();
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
 
     const sabreDevStudio = new SabreDevStudioFlight({
       client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
@@ -180,10 +183,6 @@ class ControlForm extends React.Component {
                 orientation="horizontal"
                 onChange={this.handleBudgetChange}
               />
-            </div>
-
-            <div className="text-center">
-              <DarkButton type="submit" disabled={this.getValidationState() !== 'success' || isLoading}>{isLoading ? 'Loading...' : 'Search Flights!'}</DarkButton>
             </div>
           </FormGroup>
         </form>
