@@ -6,6 +6,11 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   body {

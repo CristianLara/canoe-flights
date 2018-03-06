@@ -33,6 +33,7 @@ import { changeUsername } from './actions';
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import ControlPanel from './components/ControlPanel';
+import DetailsPanel from './components/DetailsPanel';
 import TimelineControl from './components/TimelineControl';
 import FlightInfo from './FlightInfo';
 
@@ -52,14 +53,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       lat: 34,
       zoom: 1.5,
       date: moment().add(1, 'days'), // modified by date slider
-      flights: {},
+      flights: [],
       budget: 500,
+      chosenAirport: {},
     };
     this.map = {};
     this.updateFilters = this.updateFilters.bind(this);
     this.updateDate = this.updateDate.bind(this);
     this.updateBudget = this.updateBudget.bind(this);
     this.updateFlights = this.updateFlights.bind(this);
+    this.deselectAirport = this.deselectAirport.bind(this);
   }
 
   /**
@@ -67,6 +70,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
    */
   componentDidMount() {
     const { lng, lat, zoom } = this.state;
+    const parent = this;
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -76,7 +80,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     });
 
     // Add zoom and rotation controls to the map.
-    this.map.addControl(new mapboxgl.NavigationControl({ position: 'top-right' }));
+    // this.map.addControl(new mapboxgl.NavigationControl({ position: 'top-right' }));
+    const nav = new mapboxgl.NavigationControl();
+    this.map.addControl(nav, 'bottom-right');
 
     this.map.on('load', function () {
       this.addSource('flights', {
@@ -123,6 +129,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           .addTo(this);
       });
 
+      this.on('click', 'airports', (e) => {
+        // update chosen airport in state
+        parent.setState({ chosenAirport: e.features[0].properties });
+      });
+
       this.on('mouseleave', 'airports', () => {
         this.getCanvas().style.cursor = '';
         popup.remove();
@@ -137,6 +148,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   updateDate(updatedDate) {
     this.setState({
       date: updatedDate,
+    });
+    const { flights, chosenAirport } = this.state;
+    flights.forEach((flight) => {
+      if (flight.properties.airport === chosenAirport.airport &&
+          flight.properties.departureDate === updatedDate.dayOfYear()) {
+        const newFlight = {
+          airport: flight.properties.airport,
+          city: flight.properties.city,
+          lowestFare: flight.properties.lowestFare,
+          departureDate: flight.properties.departureDate,
+        };
+        this.setState({ chosenAirport: newFlight });
+      }
     });
   }
 
@@ -168,6 +192,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     };
     this.map.getSource('flights').setData(geoJSON);
     this.updateFilters();
+    this.setState({ flights: features });
+  }
+
+  deselectAirport() {
+    this.setState({ chosenAirport: {} });
   }
 
   updateFilters() {
@@ -193,10 +222,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   render() {
+    const { flights, chosenAirport, budget } = this.state;
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
         <ControlPanel updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
+        <DetailsPanel flights={flights} destination={chosenAirport} budget={budget} deselectAirport={this.deselectAirport} />
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
