@@ -126,7 +126,7 @@ class DetailsPanel extends React.Component {
     const { flightData, lowestPrice } = this.state;
     let date = '';
     if (this.props.destination.departureDate) {
-      date = moment().dayOfYear(date).format('ddd, MMM Do');
+      date = moment().dayOfYear(this.props.destination.departureDate).format('ddd, MMM Do');
     }
     let dateIndex = 0;
     if (this.props.destination.departureDate) {
