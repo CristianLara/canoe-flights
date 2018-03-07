@@ -18,23 +18,30 @@ import SabreDevStudioFlight from '../api/sabre-flight';
 const FormContainer = styled.div`
   padding: 0px 20px 0px 20px;
 
-  .rangeslider__fill {
-    background-color: #3498db !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0) !important;
-  }
-
-  .rangeslider-horizontal .rangeslider__handle:after {
-    content: '';
-    width: 0px;
-  }
-
-  .rangeslider-horizontal .rangeslider__handle {
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
+  .form-control {
+      background-color: rgb(60, 60, 60);
+      border-color: rgba(60, 60, 60, 0);
+      color: white;
+      -webkit-appearance:none;
   }
 `;
 
+const DarkButton = styled(Button)`
+    color: white !important;
+    background-color: rgb(70, 70, 70);
+    border-color: rgba(70, 70, 70, 0);
+
+    :hover {
+        color: white !important;
+        background-color: rgb(90, 90, 90);
+        border-color: rgba(70, 70, 70, 0);
+    }
+
+`;
+
+
 const FormattedLabel = styled(ControlLabel)`
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: white !important;
 `;
 
 const PaddedFormControl = styled(FormControl)`
@@ -110,19 +117,6 @@ class ControlForm extends React.Component {
       } else {
         const parsedData = JSON.parse(data);
         updateFlights(parsedData);
-        // var dests = [];
-        // for (var i = 0; i < parsedData['FareInfo'].length; i++) {
-        //   if (parsedData['FareInfo'][i]['LowestNonStopFare']['Fare']) {
-        //     var price = parsedData['FareInfo'][i]['LowestNonStopFare']['Fare'];
-        //   } else {
-        //     var price = parsedData['FareInfo'][i]['LowestFare']['Fare'];
-        //   }
-        //   var flight = {
-        //     destination: parsedData['FareInfo'][i]['DestinationLocation'],
-        //     price: price,
-        //   };
-        //   dests.push(flight);
-        // }
       }
     };
 
@@ -189,7 +183,7 @@ class ControlForm extends React.Component {
             </div>
 
             <div className="text-center">
-              <Button type="submit" disabled={this.getValidationState() !== 'success' || isLoading}>{isLoading ? 'Loading...' : 'Search Flights!'}</Button>
+              <DarkButton type="submit" disabled={this.getValidationState() !== 'success' || isLoading}>{isLoading ? 'Loading...' : 'Search Flights!'}</DarkButton>
             </div>
           </FormGroup>
         </form>
