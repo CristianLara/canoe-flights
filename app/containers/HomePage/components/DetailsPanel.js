@@ -125,7 +125,7 @@ class DetailsPanel extends React.Component {
   }
 
   render() {
-    const { flightData, lowestPrice } = this.state;
+    const { flightData, lowestPrice, highestPrice } = this.state;
     let date = '';
     if (this.props.destination.departureDate) {
       date = moment().dayOfYear(this.props.destination.departureDate).format('ddd, MMM Do');
@@ -144,13 +144,13 @@ class DetailsPanel extends React.Component {
         <Details>{date}</Details>
         <Details>${this.props.destination.lowestFare}</Details>
 
-        <AxisTick bottom="140px">-${this.props.budget}</AxisTick>
+        <AxisTick bottom="146px">-${highestPrice}</AxisTick>
         <StyledChart width={200} height={150} data={flightData} margin={{ right: 0, left: 0, bottom: 0 }}>
           <Area dot={false} type="monotone" dataKey="price" stroke="#3498db" />
           <Tooltip offset={10} content={this.renderToolTip} />
           <YAxis
             padding={{ top: 0, bottom: 0, right: 0, left: 0 }}
-            domain={[0, this.props.budget]}
+            domain={[0, highestPrice]}
             hide
           />
           <ReferenceLine
@@ -170,7 +170,6 @@ class DetailsPanel extends React.Component {
 DetailsPanel.propTypes = {
   flights: PropTypes.array.isRequired,
   destination: PropTypes.object.isRequired,
-  budget: PropTypes.number.isRequired,
   deselectAirport: PropTypes.func.isRequired,
 };
 
