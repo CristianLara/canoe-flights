@@ -10,8 +10,9 @@ const sabreDevStudio = new SabreDevStudioFlight({
 const optionsDest = {
   origin: 'SFO',
   lengthofstay: '5',
-  location: 'BR',
+  //location: 'BR',
   maxfare: 2000,
+  pointofsalecountry: ''
 };
 
 const optionsNull = {
@@ -46,7 +47,7 @@ const callback = function (error, data) {
     console.log(JSON.stringify(parsedData, null, 4));
   }
 };
-//sabreDevStudio.destination_finder(optionsDest, callback);
+sabreDevStudio.destination_finder(optionsDest, callback);
 //sabreDevStudio.region_lookup(optionsRegion, callback);
 //sabreDevStudio.city_pairs_lookup(optionsNull, callback);
-sabreDevStudio.instaflights_search(optionsInsta, callback);
+//sabreDevStudio.instaflights_search(optionsInsta, callback);
