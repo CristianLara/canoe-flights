@@ -222,12 +222,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   render() {
-    const { flights, chosenAirport, budget } = this.state;
+    const { flights, chosenAirport } = this.state;
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
         <ControlPanel updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
-        <DetailsPanel flights={flights} destination={chosenAirport} budget={budget} deselectAirport={this.deselectAirport} />
+        <DetailsPanel flights={flights} destination={chosenAirport} deselectAirport={this.deselectAirport} />
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
