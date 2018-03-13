@@ -15,6 +15,7 @@ injectGlobal`
 
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #191A1A;
   }
 
   body.fontLoaded {
