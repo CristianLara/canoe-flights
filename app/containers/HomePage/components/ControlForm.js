@@ -59,8 +59,12 @@ class ControlForm extends React.Component {
   }
 
   handleDepartureAirportChange(event) {
+    let code = event;
+    if (event.target) {
+      code = event.target.value.toUpperCase();
+    }
     this.setState({
-      departureAirport: event.target.value.toUpperCase(),
+      departureAirport: code,
     }, () => {
       this.handleSubmit();
     });
@@ -102,7 +106,7 @@ class ControlForm extends React.Component {
       const parent = this;
       const updateFlights = this.props.updateFlights;
 
-      const callback = function (error, data) {
+      const callback = (error, data) => {
         parent.props.updateLoadingState(false);
         if (error) {
           console.log(error);
@@ -148,7 +152,7 @@ class ControlForm extends React.Component {
               )}
               value={departureAirport}
               onChange={this.handleDepartureAirportChange}
-              onSelect={(val) => this.setState({ departureAirport: val })}
+              onSelect={this.handleDepartureAirportChange}
             />
             <FormControl.Feedback />
 
