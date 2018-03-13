@@ -96,6 +96,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         },
       });
 
+      this.addSource('chosenFeature', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [],
+        },
+      });
+
       this.addLayer({
         id: 'airports',
         type: 'circle',
@@ -112,6 +120,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             ],
           },
           'circle-opacity': 1,
+        },
+      });
+
+      this.addLayer({
+        id: 'chosen-airport',
+        type: 'symbol',
+        source: 'chosenFeature',
+        "layout": {
+          "icon-image": "airport-15",
+          "icon-size": 1
         },
       });
 
@@ -135,6 +153,18 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       this.on('click', 'airports', (e) => {
         // update chosen airport in state
         parent.setState({ chosenAirport: e.features[0].properties });
+
+        const geoJSON = {
+          type: 'FeatureCollection',
+          features: [e.features[0]],
+        };
+
+        parent.map.getSource('chosenFeature').setData(geoJSON);
+        parent.map.flyTo({
+          center: e.features[0].geometry.coordinates,
+          speed: 0.12,
+          curve: 1,
+        });
       });
 
       this.on('mouseleave', 'airports', () => {
@@ -189,11 +219,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         features.push(feature);
       }
     });
+
     const geoJSON = {
       type: 'FeatureCollection',
       features,
     };
     this.map.getSource('flights').setData(geoJSON);
+
+    const chosenFeatureGeoJSON = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    this.map.getSource('chosenFeature').setData(chosenFeatureGeoJSON);
+
     this.updateFilters();
     this.setState({ flights: features });
   }
@@ -206,21 +244,21 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     const { date, budget } = this.state;
     if (this.map.loaded()) {
       this.map.setFilter('airports', ['all', ['<=', 'lowestFare', budget], ['==', 'departureDate', date.dayOfYear()]]);
+      this.map.setPaintProperty('airports', 'circle-color', {
+        property: 'lowestFare',
+        type: 'exponential',
+        stops: [
+          [0, '#2ecc71'],
+          [budget / 2, '#f1c40f'],
+          [budget, '#e74c3c'],
+        ],
+      });
     }
   }
 
   updateBudget(updatedBudget) {
     this.setState({
       budget: updatedBudget,
-    });
-    this.map.setPaintProperty('airports', 'circle-color', {
-      property: 'lowestFare',
-      type: 'exponential',
-      stops: [
-        [0, '#2ecc71'],
-        [updatedBudget / 2, '#f1c40f'],
-        [updatedBudget, '#e74c3c'],
-      ],
     });
   }
 
@@ -235,12 +273,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   render() {
-    const { flights, chosenAirport, budget, loadingState } = this.state;
+    const { flights, chosenAirport, loadingState } = this.state;
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
         <ControlPanel updateLoadingState={this.updateLoadingState} updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
-        <DetailsPanel flights={flights} destination={chosenAirport} budget={budget} deselectAirport={this.deselectAirport} />
+        <DetailsPanel flights={flights} destination={chosenAirport} deselectAirport={this.deselectAirport} />
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
