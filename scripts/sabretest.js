@@ -26,6 +26,7 @@ const callback = function (error, data) {
             //console.log(parsedData[obj]);
             array.push(parsedData[obj]['DestinationLocation']);
         };
+        console.log(parsedData);
         console.log(array);
         console.log(array.length);
       }
