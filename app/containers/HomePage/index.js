@@ -17,6 +17,7 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import styled from 'styled-components';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import Spinner from 'react-spinkit';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 
 import saga from './saga';
@@ -36,13 +37,16 @@ import ControlPanel from './components/ControlPanel';
 import DetailsPanel from './components/DetailsPanel';
 import TimelineControl from './components/TimelineControl';
 import FlightInfo from './FlightInfo';
-import Spinner from 'react-spinkit';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
 const MapWrapper = styled.div`
   height: 100%;
   width: 100%;
+`;
+
+const StyledSpinner = styled(Spinner)`
+  z-index: 100 !important;
 `;
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -127,9 +131,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         id: 'chosen-airport',
         type: 'symbol',
         source: 'chosenFeature',
-        "layout": {
-          "icon-image": "airport-15",
-          "icon-size": 1
+        layout: {
+          'icon-image': 'airport-15',
+          'icon-size': 1,
         },
       });
 
@@ -263,17 +267,17 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   updateLoadingState(updatedState) {
-    console.log(this.state.loadingState);
-
     this.setState({
       loadingState: updatedState,
     });
-    console.log('update loading state');
-    console.log(this.state.loadingState);
   }
 
   render() {
     const { flights, chosenAirport, loadingState } = this.state;
+    let load = null;
+    if (loadingState) {
+      load = (<StyledSpinner name="circle" color="aqua" />);
+    }
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
@@ -282,7 +286,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
-        {loadingState && <Spinner name="circle" color="aqua"/>}
+        {load}
       </div>
     );
   }
