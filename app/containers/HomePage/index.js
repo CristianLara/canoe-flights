@@ -36,6 +36,7 @@ import ControlPanel from './components/ControlPanel';
 import DetailsPanel from './components/DetailsPanel';
 import TimelineControl from './components/TimelineControl';
 import FlightInfo from './FlightInfo';
+import Spinner from 'react-spinkit';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY3MxOTQiLCJhIjoiY2pjenNqbGkzMHl6djJ3cW92aXowdzAyMCJ9.2eV9Cw_5zopLNcNnNuDG8g';
 
@@ -56,6 +57,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       flights: [],
       budget: 500,
       chosenAirport: {},
+      loadingState: false,
     };
     this.map = {};
     this.updateFilters = this.updateFilters.bind(this);
@@ -63,6 +65,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.updateBudget = this.updateBudget.bind(this);
     this.updateFlights = this.updateFlights.bind(this);
     this.deselectAirport = this.deselectAirport.bind(this);
+    this.updateLoadingState = this.updateLoadingState.bind(this);
   }
 
   /**
@@ -221,16 +224,27 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     });
   }
 
+  updateLoadingState(updatedState) {
+    console.log(this.state.loadingState);
+
+    this.setState({
+      loadingState: updatedState,
+    });
+    console.log('update loading state');
+    console.log(this.state.loadingState);
+  }
+
   render() {
-    const { flights, chosenAirport, budget } = this.state;
+    const { flights, chosenAirport, budget, loadingState } = this.state;
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
-        <ControlPanel updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
+        <ControlPanel updateLoadingState={this.updateLoadingState} updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
         <DetailsPanel flights={flights} destination={chosenAirport} budget={budget} deselectAirport={this.deselectAirport} />
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
+        {loadingState && <Spinner name="circle" color="aqua"/>}
       </div>
     );
   }

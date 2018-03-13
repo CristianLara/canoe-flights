@@ -29,7 +29,7 @@ function ControlPanel(props) {
   return (
     <ControlPanelWrapper>
       <Logo src={logo} alt="Canoe" />
-      <ControlForm updateBudget={props.updateBudget} updateFlights={props.updateFlights} />
+      <ControlForm updateBudget={props.updateBudget} updateFlights={props.updateFlights} updateLoadingState={props.updateLoadingState} />
     </ControlPanelWrapper>
   );
 }
@@ -37,6 +37,7 @@ function ControlPanel(props) {
 ControlPanel.propTypes = {
   updateBudget: PropTypes.func.isRequired,
   updateFlights: PropTypes.func.isRequired,
+  updateLoadingState: PropTypes.func.isRequired,
 };
 
 export default ControlPanel;
