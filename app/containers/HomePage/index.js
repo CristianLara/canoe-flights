@@ -124,9 +124,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         id: 'chosen-airport',
         type: 'symbol',
         source: 'chosenFeature',
-        "layout": {
-          "icon-image": "airport-15",
-          "icon-size": 1
+        layout: {
+          'icon-image': 'airport-15',
+          'icon-size': 1,
         },
       });
 
