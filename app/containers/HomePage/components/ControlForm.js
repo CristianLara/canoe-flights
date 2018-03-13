@@ -77,7 +77,7 @@ class ControlForm extends React.Component {
     this.setState({
       departureAirport: event.target.value.toUpperCase(),
     }, () => {
-      this.handleSubmit();
+        this.handleSubmit();
     });
   }
 
@@ -98,38 +98,40 @@ class ControlForm extends React.Component {
   }
 
   handleSubmit(event) {
-    // event.preventDefault();
-
-    const sabreDevStudio = new SabreDevStudioFlight({
-      client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
-      client_secret: 'd4InUP8r',
-      uri: 'https://api.test.sabre.com',
-    });
-
-    const options = {
-      origin: this.state.departureAirport,
-      lengthofstay: this.state.duration,
-      // maxfare: this.state.budget,
-    };
-
-    const parent = this;
-    const updateFlights = this.props.updateFlights;
-
-    const callback = function (error, data) {
-      // parent.setState({ isLoading: false });
-      parent.props.updateLoadingState(false);
-      if (error) {
-        console.log(error);
-      } else {
-        const parsedData = JSON.parse(data);
-        updateFlights(parsedData);
+    if (this.getValidationState() === 'success') {
+      if (event) {
+        event.preventDefault();
       }
-    };
+      const sabreDevStudio = new SabreDevStudioFlight({
+        client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+        client_secret: 'd4InUP8r',
+        uri: 'https://api.test.sabre.com',
+      });
 
-    // this.setState({ isLoading: true });
-    parent.props.updateLoadingState(true);
+      const options = {
+        origin: this.state.departureAirport,
+        lengthofstay: this.state.duration,
+        // maxfare: this.state.budget,
+      };
 
-    sabreDevStudio.destination_finder(options, callback);
+      const parent = this;
+      const updateFlights = this.props.updateFlights;
+
+      const callback = function (error, data) {
+        // parent.setState({ isLoading: false });
+        parent.props.updateLoadingState(false);
+        if (error) {
+          console.log(error);
+        } else {
+          const parsedData = JSON.parse(data);
+          updateFlights(parsedData);
+        }
+      };
+      // this.setState({ isLoading: true });
+      parent.props.updateLoadingState(true);
+
+      sabreDevStudio.destination_finder(options, callback);
+    }
   }
 
   render() {
