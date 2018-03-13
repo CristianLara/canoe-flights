@@ -76,15 +76,17 @@ class ControlForm extends React.Component {
   handleDepartureAirportChange(event) {
     this.setState({
       departureAirport: event.target.value.toUpperCase(),
+    }, () => {
+      this.handleSubmit();
     });
-    this.handleSubmit();
   }
 
   handleTripDurationChange(event) {
     this.setState({
       duration: event.target.value,
+    }, () => {
+      this.handleSubmit();
     });
-    this.handleSubmit();
   }
 
   handleBudgetChange(value) {
