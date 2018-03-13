@@ -93,6 +93,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         },
       });
 
+      this.addSource('chosenFeature', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: [],
+        },
+      });
+
       this.addLayer({
         id: 'airports',
         type: 'circle',
@@ -109,6 +117,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             ],
           },
           'circle-opacity': 1,
+        },
+      });
+
+      this.addLayer({
+        id: 'chosen-airport',
+        type: 'symbol',
+        source: 'chosenFeature',
+        "layout": {
+          "icon-image": "airport-15",
+          "icon-size": 1
         },
       });
 
@@ -132,6 +150,18 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       this.on('click', 'airports', (e) => {
         // update chosen airport in state
         parent.setState({ chosenAirport: e.features[0].properties });
+
+        const geoJSON = {
+          type: 'FeatureCollection',
+          features: [e.features[0]],
+        };
+
+        parent.map.getSource('chosenFeature').setData(geoJSON);
+        parent.map.flyTo({
+          center: e.features[0].geometry.coordinates,
+          speed: 0.12,
+          curve: 1,
+        });
       });
 
       this.on('mouseleave', 'airports', () => {
@@ -186,11 +216,19 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         features.push(feature);
       }
     });
+
     const geoJSON = {
       type: 'FeatureCollection',
       features,
     };
     this.map.getSource('flights').setData(geoJSON);
+
+    const chosenFeatureGeoJSON = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    this.map.getSource('chosenFeature').setData(chosenFeatureGeoJSON);
+
     this.updateFilters();
     this.setState({ flights: features });
   }
