@@ -134,6 +134,18 @@ class ControlForm extends React.Component {
             <FormattedLabel>Departure Airport</FormattedLabel>
             <Autocomplete
               items={airportCodes}
+              menuStyle= {{
+                borderRadius: '3px',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                background: 'rgb(60, 60, 60)',
+                color: 'white',
+                padding: '2px 0',
+                fontSize: '90%',
+                position: 'fixed',
+                overflow: 'auto',
+                maxHeight: '50%',
+                zIndex: '100',
+              }}
               inputProps={{ className: 'form-control', placeholder: 'SFO' }}
               shouldItemRender={(item, value) => {
                 if (value === '') {
@@ -145,7 +157,7 @@ class ControlForm extends React.Component {
               renderItem={(item, highlighted) => (
                 <div
                   key={item.id}
-                  style={{ backgroundColor: highlighted ? '#eee' : 'transparent' }}
+                  style={{ backgroundColor: highlighted ? 'rgb(40,40,40)' : 'transparent' }}
                 >
                   {item}
                 </div>
