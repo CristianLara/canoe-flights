@@ -242,6 +242,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   deselectAirport() {
     this.setState({ chosenAirport: {} });
+
+    const chosenFeatureGeoJSON = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    this.map.getSource('chosenFeature').setData(chosenFeatureGeoJSON);
   }
 
   updateFilters() {
