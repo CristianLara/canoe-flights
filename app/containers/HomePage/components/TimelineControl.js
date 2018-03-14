@@ -73,7 +73,7 @@ class TimelineControl extends React.Component {
 
     // kind of gross but i'm putting a label at 182
     // because it's the center of the slider (~= 365/2)
-    const labels = { 15: date.format('MMM DD YYYY') };
+    const labels = { 15: date.format('MMM D, YYYY') };
 
     // tells the slider how to format the tooltip
     const formatLabel = (value) => moment().add(value, 'days').format('MMM Do');
