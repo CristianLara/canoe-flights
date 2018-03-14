@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'underscore';
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import Autocomplete from 'react-autocomplete';
 
 
@@ -26,20 +26,6 @@ const FormContainer = styled.div`
   }
 `;
 
-const DarkButton = styled(Button)`
-    color: white !important;
-    background-color: rgb(70, 70, 70);
-    border-color: rgba(70, 70, 70, 0);
-
-    :hover {
-        color: white !important;
-        background-color: rgb(90, 90, 90);
-        border-color: rgba(70, 70, 70, 0);
-    }
-
-`;
-
-
 const FormattedLabel = styled(ControlLabel)`
     color: white !important;
 `;
@@ -52,10 +38,9 @@ class ControlForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departureAirport: 'SFO',
+      departureAirport: '',
       duration: 1,
       budget: 500,
-      isLoading: false,
     };
 
     this.handleDepartureAirportChange = this.handleDepartureAirportChange.bind(this);
@@ -74,14 +59,22 @@ class ControlForm extends React.Component {
   }
 
   handleDepartureAirportChange(event) {
+    let code = event;
+    if (event.target) {
+      code = event.target.value.toUpperCase();
+    }
     this.setState({
-      departureAirport: event.target.value.toUpperCase(),
+      departureAirport: code,
+    }, () => {
+      this.handleSubmit();
     });
   }
 
   handleTripDurationChange(event) {
     this.setState({
       duration: event.target.value,
+    }, () => {
+      this.handleSubmit();
     });
   }
 
@@ -90,42 +83,46 @@ class ControlForm extends React.Component {
       budget: value,
     });
     this.props.updateBudget(value);
+    // this.handleSubmit();
   }
 
   handleSubmit(event) {
-    event.preventDefault();
-
-    const sabreDevStudio = new SabreDevStudioFlight({
-      client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
-      client_secret: 'd4InUP8r',
-      uri: 'https://api.test.sabre.com',
-    });
-
-    const options = {
-      origin: this.state.departureAirport,
-      lengthofstay: this.state.duration,
-      // maxfare: this.state.budget,
-    };
-
-    const parent = this;
-    const updateFlights = this.props.updateFlights;
-
-    const callback = function (error, data) {
-      parent.setState({ isLoading: false });
-      if (error) {
-        console.log(error);
-      } else {
-        const parsedData = JSON.parse(data);
-        updateFlights(parsedData);
+    if (this.getValidationState() === 'success') {
+      if (event) {
+        event.preventDefault();
       }
-    };
+      const sabreDevStudio = new SabreDevStudioFlight({
+        client_id: 'V1:ah4wtsaa8y09idu8:DEVCENTER:EXT',
+        client_secret: 'd4InUP8r',
+        uri: 'https://api.test.sabre.com',
+      });
 
-    this.setState({ isLoading: true });
-    sabreDevStudio.destination_finder(options, callback);
+      const options = {
+        origin: this.state.departureAirport,
+        lengthofstay: this.state.duration,
+        // maxfare: this.state.budget,
+      };
+
+      const parent = this;
+      const updateFlights = this.props.updateFlights;
+
+      const callback = (error, data) => {
+        parent.props.updateLoadingState(false);
+        if (error) {
+          console.log(error);
+        } else {
+          const parsedData = JSON.parse(data);
+          updateFlights(parsedData);
+        }
+      };
+      parent.props.updateLoadingState(true);
+
+      sabreDevStudio.destination_finder(options, callback);
+    }
   }
 
   render() {
-    const { budget, departureAirport, duration, isLoading } = this.state;
+    const { budget, departureAirport, duration } = this.state;
 
     return (
       <FormContainer>
@@ -155,7 +152,7 @@ class ControlForm extends React.Component {
               )}
               value={departureAirport}
               onChange={this.handleDepartureAirportChange}
-              onSelect={(val) => this.setState({ departureAirport: val })}
+              onSelect={this.handleDepartureAirportChange}
             />
             <FormControl.Feedback />
 
@@ -181,11 +178,8 @@ class ControlForm extends React.Component {
                 onChange={this.handleBudgetChange}
               />
             </div>
-
-            <div className="text-center">
-              <DarkButton type="submit" disabled={this.getValidationState() !== 'success' || isLoading}>{isLoading ? 'Loading...' : 'Search Flights!'}</DarkButton>
-            </div>
           </FormGroup>
+
         </form>
       </FormContainer>
     );

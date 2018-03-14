@@ -17,6 +17,7 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import styled from 'styled-components';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import Spinner from 'react-spinkit';
 import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 
 import saga from './saga';
@@ -44,6 +45,10 @@ const MapWrapper = styled.div`
   width: 100%;
 `;
 
+const StyledSpinner = styled(Spinner)`
+  z-index: 100 !important;
+`;
+
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
@@ -56,6 +61,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       flights: [],
       budget: 500,
       chosenAirport: {},
+      loadingState: false,
     };
     this.map = {};
     this.updateFilters = this.updateFilters.bind(this);
@@ -63,6 +69,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.updateBudget = this.updateBudget.bind(this);
     this.updateFlights = this.updateFlights.bind(this);
     this.deselectAirport = this.deselectAirport.bind(this);
+    this.updateLoadingState = this.updateLoadingState.bind(this);
   }
 
   /**
@@ -259,16 +266,27 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     });
   }
 
+  updateLoadingState(updatedState) {
+    this.setState({
+      loadingState: updatedState,
+    });
+  }
+
   render() {
-    const { flights, chosenAirport } = this.state;
+    const { flights, chosenAirport, loadingState } = this.state;
+    let load = null;
+    if (loadingState) {
+      load = (<StyledSpinner name="circle" color="aqua" />);
+    }
     return (
       <div>
         <TimelineControl updateDate={this.updateDate} />
-        <ControlPanel updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
+        <ControlPanel updateLoadingState={this.updateLoadingState} updateBudget={this.updateBudget} updateFlights={this.updateFlights} />
         <DetailsPanel flights={flights} destination={chosenAirport} deselectAirport={this.deselectAirport} />
         <MapWrapper>
           <div ref={(el) => { this.mapContainer = el; }} className="absolute top right left bottom" />
         </MapWrapper>
+        {load}
       </div>
     );
   }
